@@ -2,23 +2,41 @@ package contacts;
 
 import contacts.data.Person;
 import contacts.input.Input;
+import contacts.input.MenuAction;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        final Scanner scanner = new Scanner(System.in);
 
-        Input input = new Input(scanner);
-        Contacts contacts = new Contacts();
-        Person.PersonBuilder personBuilder = new Person.PersonBuilder();
+        final Input input = new Input(scanner);
+        final Contacts contacts = new Contacts();
 
-        Person person = input.readPerson(personBuilder).build();
-        contacts.addPerson(person);
+        final Person.PersonBuilder personBuilder = new Person.PersonBuilder();
 
-        // debug
-        //contacts.displayPhoneBook();
+        var menuAction = MenuAction.EXIT;
+        do {
+            System.out.println("Enter action (add, remove, edit, count, list, exit):");
+            menuAction = MenuAction.translateToMenuAction(scanner.nextLine());
 
-        System.out.println("A Phone Book with a single record created!");
+            switch (menuAction) {
+                case COUNT -> System.out.println("count");
+                case EDIT -> System.out.println("edit");
+                case REMOVE -> System.out.println("remove");
+                case ADD -> {
+                    System.out.println("add");
+                    Person person = input.readPerson(personBuilder).build();
+                    contacts.addPerson(person);
+                    System.out.println("A Phone Book with a single record created!");
+                }
+                case LIST -> {
+                    System.out.println("list");
+                    contacts.displayPhoneBook();
+                }
+            }
+        } while (menuAction != MenuAction.EXIT);
     }
 }

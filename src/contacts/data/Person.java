@@ -1,5 +1,6 @@
 package contacts.data;
 
+import contacts.pool.Poolable;
 import contacts.validators.PersonValidator;
 
 public class Person implements Poolable {

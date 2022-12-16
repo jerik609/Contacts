@@ -1,6 +1,5 @@
-package contacts.data;
+package contacts.pool;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 

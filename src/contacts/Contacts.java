@@ -1,7 +1,7 @@
 package contacts;
 
 import contacts.data.Person;
-import contacts.data.Pool;
+import contacts.pool.Pool;
 
 public class Contacts {
 
