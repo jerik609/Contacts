@@ -1,10 +1,11 @@
 package contacts;
 
 import contacts.data.Person;
-import contacts.data.PhoneNumber;
+import contacts.input.PersonAction;
+import contacts.input.ReadPerson;
 import contacts.pool.Pool;
+import contacts.validators.NameValidator;
 
-import java.security.InvalidParameterException;
 import java.util.Scanner;
 
 public class Contacts {
@@ -64,27 +65,11 @@ public class Contacts {
         System.out.print("Select a record: ");
         final var selectionIndex = Integer.parseInt(scanner.nextLine());
         System.out.print("Select a field (name, surname, number): ");
-        final var selectionAttribute = scanner.nextLine();
+        final var selectionAttribute = PersonAction.translateToMenuAction(scanner.nextLine());
 
-        var builder = new Person.PersonBuilder(entries.get(selectionIndex - 1).getValue());
-
-        switch (selectionAttribute) {
-            case "name" -> {
-                System.out.print("Enter number: ");
-                phoneBook.insert(builder.firstname(scanner.nextLine()).build());
-            }
-            case "surname" -> {
-                System.out.print("Enter surname: ");
-                phoneBook.insert(builder.surname(scanner.nextLine()).build());
-            }
-            case "number" -> {
-                System.out.print("Enter number: ");
-                phoneBook.insert(builder.phoneNumber(PhoneNumber.buildPhoneNumber(scanner.nextLine())).build());
-            }
-            default -> throw new InvalidParameterException("Invalid parameter when editing record: " + selectionAttribute);
-        }
+        final var builder = new Person.PersonBuilder(new NameValidator()).fromOther(entries.get(selectionIndex - 1).getValue());
+        phoneBook.insert(new ReadPerson(scanner).readPerson(builder, selectionAttribute).build());
 
         System.out.println("The record updated!");
     }
-
 }

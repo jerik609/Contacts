@@ -11,5 +11,4 @@ public enum MenuAction {
             return MenuAction.UNKNOWN;
         }
     }
-
 }

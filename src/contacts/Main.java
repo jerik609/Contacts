@@ -1,8 +1,9 @@
 package contacts;
 
 import contacts.data.Person;
-import contacts.input.Menu;
+import contacts.input.ReadPerson;
 import contacts.input.MenuAction;
+import contacts.validators.NameValidator;
 
 import java.util.Scanner;
 
@@ -10,10 +11,10 @@ public class Main {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
 
-        final Menu input = new Menu(scanner);
+        final ReadPerson input = new ReadPerson(scanner);
         final Contacts contacts = new Contacts();
 
-        final Person.PersonBuilder personBuilder = new Person.PersonBuilder();
+        final Person.PersonBuilder personBuilder = new Person.PersonBuilder(new NameValidator());
 
         var menuAction = MenuAction.EXIT;
         do {

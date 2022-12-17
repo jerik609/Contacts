@@ -1,10 +1,9 @@
 package contacts.data;
 
 import contacts.pool.Poolable;
-import contacts.validators.PersonValidator;
+import contacts.validators.Validator;
 
 public class Person implements Poolable {
-
     private final String firstname;
     private final String surname;
     private final PhoneNumber phoneNumber;
@@ -40,19 +39,14 @@ public class Person implements Poolable {
     }
 
     public static class PersonBuilder {
+        private final Validator nameValidator;
 
         private String firstname;
         private String surname;
         private PhoneNumber phoneNumber;
 
-        public PersonBuilder() {
-        }
-
-        public PersonBuilder(Person other) {
-            this();
-            this.firstname = other.firstname;
-            this.surname = other.surname;
-            this.phoneNumber = other.phoneNumber; // we can do this, phone number is immutable
+        public PersonBuilder(Validator nameValidator) {
+            this.nameValidator = nameValidator;
         }
 
         public PersonBuilder firstname(String firstname) {
@@ -70,8 +64,15 @@ public class Person implements Poolable {
             return this;
         }
 
+        public PersonBuilder fromOther(Person other) {
+            this.firstname = other.firstname;
+            this.surname = other.surname;
+            this.phoneNumber = other.phoneNumber; // we can do this, phone number is immutable
+            return this;
+        }
+
         public Person build() {
-            if (PersonValidator.isValidName(firstname) && PersonValidator.isValidName(surname)) {
+            if (nameValidator.validate(firstname) && nameValidator.validate(surname)) {
                 return new Person(firstname, surname, phoneNumber);
             } else {
                 System.out.println("Invalid person: " + this);
