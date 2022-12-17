@@ -1,18 +1,16 @@
 package contacts;
 
 import contacts.data.Person;
-import contacts.input.Input;
+import contacts.input.Menu;
 import contacts.input.MenuAction;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
 
-        final Input input = new Input(scanner);
+        final Menu input = new Menu(scanner);
         final Contacts contacts = new Contacts();
 
         final Person.PersonBuilder personBuilder = new Person.PersonBuilder();
@@ -23,19 +21,14 @@ public class Main {
             menuAction = MenuAction.translateToMenuAction(scanner.nextLine());
 
             switch (menuAction) {
-                case COUNT -> System.out.println("count");
-                case EDIT -> System.out.println("edit");
-                case REMOVE -> System.out.println("remove");
+                case COUNT -> contacts.displayNumberOfEntries();
+                case EDIT -> contacts.editEntry(scanner);
+                case REMOVE -> contacts.removeEntry(scanner);
                 case ADD -> {
-                    System.out.println("add");
                     Person person = input.readPerson(personBuilder).build();
                     contacts.addPerson(person);
-                    System.out.println("A Phone Book with a single record created!");
                 }
-                case LIST -> {
-                    System.out.println("list");
-                    contacts.displayPhoneBook();
-                }
+                case LIST -> contacts.listPhoneBook();
             }
         } while (menuAction != MenuAction.EXIT);
     }

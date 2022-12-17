@@ -1,7 +1,8 @@
 package contacts.pool;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Pool<T extends Poolable> {
 
@@ -11,12 +12,16 @@ public class Pool<T extends Poolable> {
         pool = new HashMap<>();
     }
 
+    public int getSize() {
+        return pool.size();
+    }
+
     public T lookup(String key) {
         return pool.get(key);
     }
 
-    public Collection<T> getAll() {
-        return pool.values();
+    public List<Map.Entry<String, T>> getAll() {
+        return pool.entrySet().stream().toList();
     }
 
     public void insert(T item) {
@@ -25,6 +30,10 @@ public class Pool<T extends Poolable> {
         } else {
             pool.put(item.getKey(), item);
         }
+    }
+
+    public void remove(String key) {
+        pool.remove(key);
     }
 
 }

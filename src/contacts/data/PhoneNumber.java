@@ -1,15 +1,13 @@
 package contacts.data;
 
-import contacts.pool.Poolable;
-
 import java.security.InvalidParameterException;
 import java.util.regex.Pattern;
 
-public class PhoneNumber implements Poolable {
+public class PhoneNumber {
 
     private static final String REGEX_SPLIT = "[ -]";
-    private static final String REGEX_PARENTHESES_SEARCH = ".*\\(\\w+\\)";
-    private static final String REGEX_FIRST_GROUP = "\\+?\\(?\\w+\\)?";
+    private static final String REGEX_PARENTHESES_SEARCH = "\\([\\w\\s]+\\)";
+    private static final String REGEX_FIRST_GROUP = "\\+?\\(?[a-zA-Z0-9]+\\)?";
     private static final String REGEX_DEFAULT_GROUP = "\\(*\\w{2,}\\)*";
 
     private static final Pattern parenthesesPattern = Pattern.compile(REGEX_PARENTHESES_SEARCH);
@@ -38,8 +36,13 @@ public class PhoneNumber implements Poolable {
             // if more than one group
             if (split.length > 1) {
                 // validate parentheses
-                if (parenthesesPattern.matcher(split[0]).matches() && parenthesesPattern.matcher(split[1]).matches()) {
-                    throw new InvalidParameterException("Parentheses in both first and second group: " + split[0] + ", " + split[1]);
+                var parenthesesCount = parenthesesPattern.matcher(phoneNumber).results().count();
+                if (parenthesesCount > 1) { // more than one set of parentheses
+                    throw new InvalidParameterException("Invalid number of parentheses: " + phoneNumber);
+                } else if (parenthesesCount == 1) { // parentheses not in first two groups
+                    if (!parenthesesPattern.matcher(split[0]).matches() && !parenthesesPattern.matcher(split[1]).matches()) {
+                        throw new InvalidParameterException("Parentheses not in first two groups: " + phoneNumber);
+                    }
                 }
 
                 // validate remaining groups
@@ -50,13 +53,14 @@ public class PhoneNumber implements Poolable {
                 }
             }
         } catch (InvalidParameterException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+            System.out.println("Wrong number format!");
             return false;
         }
         return true;
     }
 
-    public static PhoneNumber createPhoneNumber(String phoneNumber) {
+    public static PhoneNumber buildPhoneNumber(String phoneNumber) {
         if (validatePhoneNumber(phoneNumber)) {
             return new PhoneNumber(phoneNumber);
         } else {
@@ -75,19 +79,14 @@ public class PhoneNumber implements Poolable {
                 '}';
     }
 
-    public static void main(String[] args) {
-        var phoneNumberStr = "+(123) 234 345-456";
-        var phoneNumber = PhoneNumber.createPhoneNumber(phoneNumberStr);
-        if (phoneNumber != null) {
-            System.out.println(phoneNumber);
-            System.out.println(phoneNumber.getPhoneNumber());
-        } else {
-            System.out.println("Invalid phone number");
-        }
-    }
-
-    @Override
-    public String getKey() {
-        return phoneNumber;
-    }
+//    public static void main(String[] args) {
+//        var phoneNumberStr = "+(with space)"; //"+(123) 234 345-456";
+//        var phoneNumber = PhoneNumber.buildPhoneNumber(phoneNumberStr);
+//        if (phoneNumber != null) {
+//            System.out.println(phoneNumber);
+//            System.out.println(phoneNumber.getPhoneNumber());
+//        } else {
+//            System.out.println("Invalid phone number");
+//        }
+//    }
 }

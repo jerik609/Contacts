@@ -7,9 +7,9 @@ public class Person implements Poolable {
 
     private final String firstname;
     private final String surname;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
 
-    private Person(String firstname, String surname, String phoneNumber) {
+    private Person(String firstname, String surname, PhoneNumber phoneNumber) {
         this.firstname = firstname;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
@@ -20,24 +20,43 @@ public class Person implements Poolable {
         return surname + "," + firstname;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
+    }
+
     @Override
     public String toString() {
-        return surname + "," + firstname + "," + phoneNumber;
+        return firstname + " "
+                + surname + ", "
+                + (phoneNumber == null ? "[no number]" : phoneNumber.getPhoneNumber());
     }
 
     public static class PersonBuilder {
 
         private String firstname;
         private String surname;
-        private String phoneNumber;
+        private PhoneNumber phoneNumber;
+
+        public PersonBuilder() {
+        }
+
+        public PersonBuilder(Person other) {
+            this();
+            this.firstname = other.firstname;
+            this.surname = other.surname;
+            this.phoneNumber = other.phoneNumber; // we can do this, phone number is immutable
+        }
 
         public PersonBuilder firstname(String firstname) {
             this.firstname = firstname;
-            return this;
-        }
-
-        public PersonBuilder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
             return this;
         }
 
@@ -46,10 +65,13 @@ public class Person implements Poolable {
             return this;
         }
 
+        public PersonBuilder phoneNumber(PhoneNumber phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
         public Person build() {
-            if (PersonValidator.isValidName(firstname) &&
-                    PersonValidator.isValidName(surname) &&
-                    PersonValidator.isValidPhoneNumber(phoneNumber)) {
+            if (PersonValidator.isValidName(firstname) && PersonValidator.isValidName(surname)) {
                 return new Person(firstname, surname, phoneNumber);
             } else {
                 System.out.println("Invalid person: " + this);
@@ -59,7 +81,7 @@ public class Person implements Poolable {
 
         @Override
         public String toString() {
-            return surname + "," + firstname + "," + phoneNumber;
+            return surname + ", " + firstname + ", " + phoneNumber;
         }
     }
 }
