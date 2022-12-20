@@ -1,5 +1,5 @@
 package contacts.pool;
 
-public interface Poolable {
+public interface Keyed {
     String getKey();
 }

@@ -1,9 +1,9 @@
 package contacts.data;
 
-import contacts.pool.Poolable;
+import contacts.pool.Keyed;
 import contacts.validators.Validator;
 
-public class Person implements Poolable {
+public class Person extends ContactDetails implements Keyed {
     private final String firstname;
     private final String surname;
     private final PhoneNumber phoneNumber;

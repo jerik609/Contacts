@@ -3,14 +3,14 @@ package contacts;
 import contacts.data.Person;
 import contacts.input.PersonAction;
 import contacts.input.ReadPerson;
-import contacts.pool.Pool;
+import contacts.pool.OldPool;
 import contacts.validators.NameValidator;
 
 import java.util.Scanner;
 
 public class Contacts {
 
-    private final Pool<Person> phoneBook = new Pool<>();
+    private final OldPool<Person> phoneBook = new OldPool<>();
 
     void addPerson(Person person) {
         phoneBook.insert(person);
