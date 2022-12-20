@@ -3,7 +3,7 @@ package contacts.pool;
 import java.util.*;
 
 public class PoolManager {
-    private final Map<Class<?>, Pool<?>> poolMap = new HashMap<>();
+    private final Map<Class<?>, NeoPool> poolMap = new HashMap<>();
     private final Set<Class<?>> managedPools = new HashSet<>();
 
     /**
@@ -14,7 +14,7 @@ public class PoolManager {
      */
     public <T extends Keyed> boolean addPool(Class<T> type) {
         managedPools.add(type);
-        return poolMap.putIfAbsent(type, new Pool<T>()) == null;
+        return poolMap.putIfAbsent(type, new NeoPool()) == null;
     }
 
     /**
@@ -31,19 +31,22 @@ public class PoolManager {
         return Optional.ofNullable(type.cast(poolMap.get(type).get(key)));
     }
 
+    public <T extends Keyed> boolean putValue(T value) {
+        return putValue(value.getClass(), value);
+    }
+
     /**
      * Store a value in the pool manager
      * @param type type of the value
-     * @param poolType type of the data pool
      * @param value the value itself
      * @return true if value was stored successfully
      * @param <T> type of data stored in the pools
      */
-    public <T extends Keyed> boolean putValue(Class<T> type, Class<Pool<T>> poolType, T value) {
+    private <T extends Keyed> boolean putValue(Class<T> type, Keyed value) {
         if (!poolMap.containsKey(type)) {
             return false;
         }
-        poolType.cast(poolMap.get(type)).put(type, value);
+        poolMap.get(type).put(value);
         return true;
     }
 

@@ -19,7 +19,9 @@ public class TestRunPools {
                 .phoneNumber(PhoneNumber.buildPhoneNumber("aaa"))
                 .build();
 
-        poolManager.putValue(person.getClass(),
+        poolManager.putValue(person);
+
+        System.out.println(poolManager.getValue(Person.class, person.getKey()));
 
     }
 
