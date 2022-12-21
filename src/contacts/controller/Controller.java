@@ -1,7 +1,7 @@
 package contacts.controller;
 
 import contacts.controller.command.CommandExecutor;
-import contacts.controller.selector.ContactsMenu;
+import contacts.controller.menu.ContactsMenu;
 
 import java.util.Scanner;
 

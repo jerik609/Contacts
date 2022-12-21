@@ -1,10 +1,8 @@
 package contacts.input;
 
 import contacts.data.attributes.Address;
-import contacts.data.attributes.Gender;
 import contacts.data.attributes.PhoneNumber;
 import contacts.data.entities.Organization;
-import contacts.data.entities.Person;
 
 import java.security.InvalidParameterException;
 import java.util.Scanner;

@@ -1,6 +1,5 @@
 package contacts.pool;
 
-import java.security.Key;
 import java.util.*;
 
 public class PoolManager {

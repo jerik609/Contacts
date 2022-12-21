@@ -1,4 +1,4 @@
-package contacts.controller.selector.enums;
+package contacts.controller.menu.enums;
 
 public enum EntityAction {
     ADD, REMOVE, EDIT, COUNT, INFO, EXIT, UNKNOWN;

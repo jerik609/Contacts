@@ -1,10 +1,10 @@
-package contacts.controller.selector;
+package contacts.controller.menu;
 
 import contacts.controller.Contacts;
 import contacts.controller.Controller;
 import contacts.controller.command.Command;
 import contacts.controller.command.commands.*;
-import contacts.controller.selector.enums.EntityAction;
+import contacts.controller.menu.enums.EntityAction;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
