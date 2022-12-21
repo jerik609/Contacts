@@ -2,6 +2,7 @@ package contacts.controller.selector;
 
 import contacts.controller.Contacts;
 import contacts.controller.Controller;
+import contacts.controller.selector.enums.EntityType;
 
 import java.security.InvalidParameterException;
 import java.util.Scanner;

@@ -5,7 +5,7 @@ import contacts.input.ReadPerson;
 import contacts.controller.Contacts;
 import contacts.controller.Controller;
 import contacts.controller.command.Command;
-import contacts.controller.command.commands.AddPersonCommand;
+import contacts.controller.command.commands.PersonAddCommand;
 import contacts.input.validators.NameValidator;
 
 import java.util.Scanner;
@@ -25,7 +25,7 @@ public class PersonActionSelector extends ActionSelector {
     Command addAction() {
         System.out.println("Adding person...");
         Person person = input.readPerson(personBuilder).build();
-        return new AddPersonCommand(contacts, person);
+        return new PersonAddCommand(contacts, person);
     }
 
     @Override

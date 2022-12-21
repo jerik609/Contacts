@@ -2,6 +2,8 @@ package contacts.controller;
 
 import contacts.controller.command.CommandExecutor;
 import contacts.controller.selector.*;
+import contacts.controller.selector.enums.EntityAction;
+import contacts.controller.selector.enums.EntityType;
 
 import java.util.Scanner;
 

@@ -4,12 +4,12 @@ import contacts.data.entities.Person;
 import contacts.controller.Contacts;
 import contacts.controller.command.Command;
 
-public class AddPersonCommand implements Command {
+public class PersonAddCommand implements Command {
 
     private final Contacts contacts;
     private final Person person;
 
-    public AddPersonCommand(Contacts contacts, Person person) {
+    public PersonAddCommand(Contacts contacts, Person person) {
         this.contacts = contacts;
         this.person = person;
     }

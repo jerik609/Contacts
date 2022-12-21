@@ -3,6 +3,7 @@ package contacts.controller.selector;
 import contacts.controller.Controller;
 import contacts.controller.command.Command;
 import contacts.controller.command.commands.StopCommand;
+import contacts.controller.selector.enums.EntityAction;
 
 import java.security.InvalidParameterException;
 import java.util.Scanner;
