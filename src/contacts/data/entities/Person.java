@@ -4,7 +4,7 @@ import contacts.data.attributes.Address;
 import contacts.data.attributes.Gender;
 import contacts.data.attributes.PhoneNumber;
 import contacts.input.PersonAction;
-import contacts.input.ReadPerson;
+import contacts.input.PersonReader;
 import contacts.input.validators.NameValidator;
 import contacts.input.validators.Validator;
 import contacts.pool.Keyed;
@@ -60,7 +60,7 @@ public class Person extends ContactDetails {
         System.out.print("Select a field (name, surname, birth, gender, number): ");
         final var selection = PersonAction.translateToMenuAction(scanner.nextLine());
 
-        var updatedEntry = new ReadPerson(scanner).readPerson(builder.from(this), selection).build();
+        var updatedEntry = new PersonReader(scanner).read(builder.from(this), selection).build();
         updatedEntry.createdTime = this.createdTime;
         updatedEntry.updatedTime = LocalDateTime.now();
         updatedEntry.copyKeyFrom(this);

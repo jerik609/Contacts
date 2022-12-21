@@ -2,9 +2,6 @@ package contacts.controller;
 
 import contacts.data.entities.Organization;
 import contacts.data.entities.Person;
-import contacts.input.PersonAction;
-import contacts.input.ReadPerson;
-import contacts.input.validators.NameValidator;
 import contacts.pool.Keyed;
 import contacts.pool.PoolManager;
 

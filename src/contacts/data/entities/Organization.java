@@ -2,9 +2,13 @@ package contacts.data.entities;
 
 import contacts.data.attributes.Address;
 import contacts.data.attributes.PhoneNumber;
+import contacts.input.OrganizationAction;
+import contacts.input.OrganizationReader;
+import contacts.input.validators.NameValidator;
 import contacts.input.validators.Validator;
 import contacts.pool.Keyed;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Organization extends ContactDetails {
@@ -25,7 +29,17 @@ public class Organization extends ContactDetails {
 
     @Override
     public Keyed updateFromSelf(Scanner scanner) {
-        return null;
+        var builder = new Organization.Builder(new NameValidator());
+
+        System.out.print("Select a field (name, address, number): ");
+        final var selection = OrganizationAction.translateToMenuAction(scanner.nextLine());
+
+        var updatedEntry = new OrganizationReader(scanner).read(builder.from(this), selection).build();
+        updatedEntry.createdTime = this.createdTime;
+        updatedEntry.updatedTime = LocalDateTime.now();
+        updatedEntry.copyKeyFrom(this);
+
+        return updatedEntry;
     }
 
     @Override

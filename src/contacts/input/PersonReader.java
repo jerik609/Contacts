@@ -7,14 +7,14 @@ import contacts.data.attributes.PhoneNumber;
 import java.security.InvalidParameterException;
 import java.util.Scanner;
 
-public class ReadPerson {
+public class PersonReader {
     private final Scanner scanner;
 
-    public ReadPerson(Scanner scanner) {
+    public PersonReader(Scanner scanner) {
         this.scanner = scanner;
     }
 
-    public Person.Builder readPerson(Person.Builder builder, PersonAction action) {
+    public Person.Builder read(Person.Builder builder, PersonAction action) {
         switch (action) {
             case NAME -> {
                 System.out.print("Enter name: ");
@@ -41,7 +41,7 @@ public class ReadPerson {
         return builder;
     }
 
-    public Person.Builder readPerson(Person.Builder builder) {
+    public Person.Builder read(Person.Builder builder) {
         System.out.print("Enter the name: ");
         String firstname = scanner.nextLine();
 

@@ -1,7 +1,5 @@
 package contacts.data.attributes;
 
-import contacts.controller.selector.enums.EntityAction;
-
 public enum Gender {
     FEMALE, MALE, NON_BINARY, ;
 
