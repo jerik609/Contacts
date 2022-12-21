@@ -1,10 +1,10 @@
-package contacts.menu;
+package contacts.controller;
 
 import contacts.data.entities.Person;
 import contacts.input.PersonAction;
 import contacts.input.ReadPerson;
 import contacts.pool.OldPool;
-import contacts.validators.NameValidator;
+import contacts.input.validators.NameValidator;
 
 import java.util.Scanner;
 

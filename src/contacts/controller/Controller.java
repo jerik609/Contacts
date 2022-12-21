@@ -1,8 +1,8 @@
-package contacts.menu;
+package contacts.controller;
 
-import contacts.menu.command.CommandExecutor;
-import contacts.menu.selector.ActionSelector;
-import contacts.menu.selector.PersonActionSelector;
+import contacts.controller.command.CommandExecutor;
+import contacts.controller.selector.ActionSelector;
+import contacts.controller.selector.PersonActionSelector;
 
 import java.util.Scanner;
 

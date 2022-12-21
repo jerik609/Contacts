@@ -1,8 +1,8 @@
-package contacts.menu.command.commands;
+package contacts.controller.command.commands;
 
 import contacts.data.entities.Person;
-import contacts.menu.Contacts;
-import contacts.menu.command.Command;
+import contacts.controller.Contacts;
+import contacts.controller.command.Command;
 
 public class AddPersonCommand implements Command {
 

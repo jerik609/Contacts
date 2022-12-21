@@ -1,4 +1,4 @@
-package contacts.validators;
+package contacts.input.validators;
 
 public class NameValidator implements Validator {
     private static final String NAME_REGEX = "\\w+";

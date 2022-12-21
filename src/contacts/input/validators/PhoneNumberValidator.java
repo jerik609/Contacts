@@ -1,4 +1,4 @@
-package contacts.validators;
+package contacts.input.validators;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Pattern;

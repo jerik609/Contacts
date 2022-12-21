@@ -1,4 +1,4 @@
-package contacts.menu.command;
+package contacts.controller.command;
 
 import java.util.LinkedList;
 import java.util.Queue;

@@ -1,7 +1,7 @@
-package contacts.menu.command.commands;
+package contacts.controller.command.commands;
 
-import contacts.menu.command.Command;
-import contacts.menu.Controller;
+import contacts.controller.command.Command;
+import contacts.controller.Controller;
 
 public class StopCommand implements Command {
     private final Controller menu;

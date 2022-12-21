@@ -1,7 +1,7 @@
 package contacts.playground;
 
-import contacts.validators.NameValidator;
-import contacts.validators.PhoneNumberValidator;
+import contacts.input.validators.NameValidator;
+import contacts.input.validators.PhoneNumberValidator;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package contacts.menu.selector;
+package contacts.controller.selector;
 
 public enum Action {
     ADD, REMOVE, EDIT, COUNT, INFO, EXIT, UNKNOWN ;

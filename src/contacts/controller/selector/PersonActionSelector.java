@@ -1,14 +1,13 @@
-package contacts.menu.selector;
+package contacts.controller.selector;
 
 import contacts.data.entities.Person;
 import contacts.input.ReadPerson;
-import contacts.menu.Contacts;
-import contacts.menu.Controller;
-import contacts.menu.command.Command;
-import contacts.menu.command.CommandExecutor;
-import contacts.menu.command.commands.AddPersonCommand;
-import contacts.menu.command.commands.StopCommand;
-import contacts.validators.NameValidator;
+import contacts.controller.Contacts;
+import contacts.controller.Controller;
+import contacts.controller.command.Command;
+import contacts.controller.command.commands.AddPersonCommand;
+import contacts.controller.command.commands.StopCommand;
+import contacts.input.validators.NameValidator;
 
 import java.util.Scanner;
 

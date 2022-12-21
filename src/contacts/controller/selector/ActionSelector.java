@@ -1,7 +1,7 @@
-package contacts.menu.selector;
+package contacts.controller.selector;
 
 
-import contacts.menu.command.Command;
+import contacts.controller.command.Command;
 
 import java.security.InvalidParameterException;
 import java.util.Scanner;

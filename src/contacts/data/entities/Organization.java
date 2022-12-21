@@ -2,7 +2,7 @@ package contacts.data.entities;
 
 import contacts.data.attributes.Address;
 import contacts.data.attributes.PhoneNumber;
-import contacts.validators.Validator;
+import contacts.input.validators.Validator;
 
 public class Organization extends ContactDetails {
     private final String name;

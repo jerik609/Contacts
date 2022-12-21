@@ -1,7 +1,7 @@
 package contacts;
 
-import contacts.menu.Contacts;
-import contacts.menu.Controller;
+import contacts.controller.Contacts;
+import contacts.controller.Controller;
 
 public class Main {
     public static void main(String[] args) {

@@ -3,7 +3,7 @@ package contacts.data.entities;
 import contacts.data.attributes.Address;
 import contacts.data.attributes.Gender;
 import contacts.data.attributes.PhoneNumber;
-import contacts.validators.Validator;
+import contacts.input.validators.Validator;
 
 public class Person extends ContactDetails {
     private final String firstname;

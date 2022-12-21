@@ -1,7 +1,7 @@
 package contacts.data.attributes;
 
-import contacts.validators.PhoneNumberValidator;
-import contacts.validators.Validator;
+import contacts.input.validators.PhoneNumberValidator;
+import contacts.input.validators.Validator;
 
 public class PhoneNumber {
     private final static Validator phoneNumberValidator = new PhoneNumberValidator();
