@@ -12,6 +12,7 @@ public class StopCommand implements Command {
 
     @Override
     public void execute() {
+        System.out.println("Stopping...");
         menu.stop();
     }
 }

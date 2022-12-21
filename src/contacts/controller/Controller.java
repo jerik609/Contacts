@@ -4,6 +4,8 @@ import contacts.controller.command.CommandExecutor;
 import contacts.controller.selector.*;
 import contacts.controller.selector.enums.EntityAction;
 import contacts.controller.selector.enums.EntityType;
+import contacts.controller.selector2.ContactItemMenu;
+import contacts.controller.selector2.ContactsMenu;
 
 import java.util.Scanner;
 
@@ -27,16 +29,18 @@ public class Controller {
 
     public void run() {
         do {
-            System.out.print("Enter action (add, remove, edit, count, info, exit): ");
-            final var actionStr = scanner.nextLine();
-            final var action = EntityAction.translateFrom(actionStr);
-
-            System.out.print("Enter the type (person, organization): ");
-            final var typeStr = scanner.nextLine();
-            final var type = EntityType.translateFrom(typeStr);
-
-            var actionSelector = typeSelector.selectType(type);
-            var command = actionSelector.selectAction(action);
+//            System.out.print("Enter action (add, remove, edit, count, info, exit): ");
+//            final var actionStr = scanner.nextLine();
+//            final var action = EntityAction.translateFrom(actionStr);
+//
+//            System.out.print("Enter the type (person, organization): ");
+//            final var typeStr = scanner.nextLine();
+//            final var type = EntityType.translateFrom(typeStr);
+//
+//            var actionSelector = typeSelector.selectType(type);
+//            var command = actionSelector.selectAction(action);
+            var menu = new ContactsMenu(this, scanner);
+            var command = menu.get();
             if (command != null) {
                 commandExecutor.acceptCommand(command);
             }
