@@ -1,10 +1,9 @@
 package contacts.data;
 
-import contacts.pool.Pool;
 import contacts.pool.PoolManager;
 import contacts.validators.NameValidator;
 
-public class TestRunPools {
+public class TestdrivePools {
 
     public static void main(String[] args) {
 
@@ -22,6 +21,10 @@ public class TestRunPools {
         poolManager.putValue(person);
 
         System.out.println(poolManager.getValue(Person.class, person.getKey()));
+
+        var organization = new Organization("hello_world_org");
+        System.out.println(organization);
+
 
     }
 

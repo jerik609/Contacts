@@ -1,11 +1,10 @@
 package contacts.data;
 
-public class ContactDetails {
+import contacts.pool.Keyed;
+
+public abstract class ContactDetails extends Keyed {
 
     private PhoneNumber phoneNumber;
-    private String address;
-
-
-
+    private Address address;
 
 }

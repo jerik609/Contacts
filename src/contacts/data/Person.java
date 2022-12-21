@@ -3,7 +3,7 @@ package contacts.data;
 import contacts.pool.Keyed;
 import contacts.validators.Validator;
 
-public class Person extends ContactDetails implements Keyed {
+public class Person extends ContactDetails {
     private final String firstname;
     private final String surname;
     private final PhoneNumber phoneNumber;
@@ -12,6 +12,11 @@ public class Person extends ContactDetails implements Keyed {
         this.firstname = firstname;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    protected String getKeyInternal() {
+        return null;
     }
 
     @Override

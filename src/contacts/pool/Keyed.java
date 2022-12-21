@@ -1,5 +1,10 @@
 package contacts.pool;
 
-public interface Keyed {
-    String getKey();
+public abstract class Keyed {
+
+    protected abstract String getKeyInternal();
+
+    protected String getKey() {
+        return this.getClass() + "-" + getKeyInternal();
+    }
 }
