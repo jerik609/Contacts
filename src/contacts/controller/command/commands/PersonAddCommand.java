@@ -9,19 +9,17 @@ import contacts.input.validators.NameValidator;
 import java.util.Scanner;
 
 public class PersonAddCommand implements Command {
-    private final Scanner scanner;
     private final Contacts contacts;
     private final Person person;
 
     public PersonAddCommand(Contacts contacts, Scanner scanner) {
         this.contacts = contacts;
-        this.scanner = scanner;
         person = new ReadPerson(scanner).readPerson(new Person.Builder(new NameValidator())).build();
     }
 
     @Override
     public void execute() {
-        contacts.addPerson(person);
+        contacts.add(person);
     }
 
     @Override

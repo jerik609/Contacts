@@ -3,7 +3,7 @@ package contacts.pool;
 import java.util.*;
 
 public class PoolManager {
-    private final Map<Class<?>, NeoPool> poolMap = new HashMap<>();
+    private final Map<Class<?>, Pool> poolMap = new HashMap<>();
     private final Set<Class<?>> managedPools = new HashSet<>();
 
     /**
@@ -14,7 +14,7 @@ public class PoolManager {
      */
     public <T extends Keyed> boolean addPool(Class<T> type) {
         managedPools.add(type);
-        return poolMap.putIfAbsent(type, new NeoPool()) == null;
+        return poolMap.putIfAbsent(type, new Pool()) == null;
     }
 
     /**
@@ -32,7 +32,13 @@ public class PoolManager {
     }
 
     public <T extends Keyed> boolean putValue(T value) {
-        return putValue(value.getClass(), value);
+        if (!poolMap.containsKey(value.getClass())) {
+            return false;
+        }
+        poolMap.get(value.getClass()).put(value);
+        return true;
+
+        //return putValue(value.getClass(), value);
     }
 
     /**
@@ -50,4 +56,11 @@ public class PoolManager {
         return true;
     }
 
+    public List<? super Keyed> getAll() {
+        return poolMap.values().stream().flatMap(pool -> pool.getAll().stream()).toList();
+    }
+
+    public int getSize() {
+        return poolMap.values().stream().reduce(0, (integer, pool) -> integer + pool.getSize(), Integer::sum);
+    }
 }

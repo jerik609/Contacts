@@ -8,13 +8,14 @@ import contacts.input.validators.Validator;
 public class Person extends ContactDetails {
     private final String firstname;
     private final String surname;
+    private final String birthDate;
     private final Gender gender;
-    private final PhoneNumber phoneNumber;
 
-    private Person(String firstname, String surname, Gender gender, Address address, PhoneNumber phoneNumber) {
+    private Person(String firstname, String surname, String birthDate, Gender gender, Address address, PhoneNumber phoneNumber) {
         super(address, phoneNumber);
         this.firstname = firstname;
         this.surname = surname;
+        this.birthDate = birthDate;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
     }
@@ -37,8 +38,12 @@ public class Person extends ContactDetails {
         return surname;
     }
 
-    public PhoneNumber getPhoneNumber() {
-        return phoneNumber;
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 
     @Override
@@ -46,8 +51,8 @@ public class Person extends ContactDetails {
         return "Person{" +
                 "firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +
+                ", birthDate='" + birthDate + '\'' +
                 ", gender=" + gender +
-                ", phoneNumber=" + phoneNumber +
                 "} " + super.toString();
     }
 
@@ -56,8 +61,9 @@ public class Person extends ContactDetails {
 
         private String firstname;
         private String surname;
+        private String birthDate;
         private Gender gender;
-        private Address address;
+        private Address address = Address.buildAddress("");
         private PhoneNumber phoneNumber;
 
         public Builder(Validator nameValidator) {
@@ -74,8 +80,13 @@ public class Person extends ContactDetails {
             return this;
         }
 
-        public Builder address(Address address) {
-            this.address = address;
+        public Builder birthDate(String birthDate) {
+            this.birthDate = birthDate;
+            return this;
+        }
+
+        public Builder gender(Gender gender) {
+            this.gender = gender;
             return this;
         }
 
@@ -87,15 +98,16 @@ public class Person extends ContactDetails {
         public Builder from(Person other) {
             this.firstname = other.firstname;
             this.surname = other.surname;
-            this.address = other.address;
+            this.birthDate = other.birthDate;
             this.gender = other.gender;
+            this.address = other.address;
             this.phoneNumber = other.phoneNumber; // we can do this, phone number is immutable
             return this;
         }
 
         public Person build() {
             if (nameValidator.validate(firstname) && nameValidator.validate(surname)) {
-                return new Person(firstname, surname, gender, address, phoneNumber);
+                return new Person(firstname, surname, birthDate, gender, address, phoneNumber);
             } else {
                 System.out.println("Invalid person: " + this);
                 return null;
@@ -108,6 +120,7 @@ public class Person extends ContactDetails {
                     "nameValidator=" + nameValidator +
                     ", firstname='" + firstname + '\'' +
                     ", surname='" + surname + '\'' +
+                    ", birthDate='" + birthDate + '\'' +
                     ", gender=" + gender +
                     ", address=" + address +
                     ", phoneNumber=" + phoneNumber +

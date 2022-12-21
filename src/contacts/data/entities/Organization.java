@@ -21,8 +21,7 @@ public class Organization extends ContactDetails {
     public String toString() {
         return "Organization{" +
                 "name='" + name + '\'' +
-                "key='" + super.getKey() + '\'' +
-                '}';
+                "} " + super.toString();
     }
 
     public static class Builder {

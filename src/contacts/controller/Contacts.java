@@ -1,19 +1,23 @@
 package contacts.controller;
 
+import contacts.data.entities.Organization;
 import contacts.data.entities.Person;
-import contacts.input.PersonAction;
-import contacts.input.ReadPerson;
-import contacts.pool.OldPool;
-import contacts.input.validators.NameValidator;
+import contacts.pool.Keyed;
+import contacts.pool.PoolManager;
 
 import java.util.Scanner;
 
 public class Contacts {
 
-    private final OldPool<Person> phoneBook = new OldPool<>();
+    private final PoolManager phoneBook = new PoolManager();
 
-    public void addPerson(Person person) {
-        phoneBook.insert(person);
+    public Contacts() {
+        phoneBook.addPool(Person.class);
+        phoneBook.addPool(Organization.class);
+    }
+
+    public void add(Keyed item) {
+        phoneBook.putValue(item);
         System.out.println("The record added.");
     }
 
@@ -26,50 +30,51 @@ public class Contacts {
             System.out.println("No records to list!");
             return;
         }
-
         final var entries = phoneBook.getAll();
         for (int i = 0; i < entries.size(); i++) {
-            System.out.println((i + 1) + ". " + entries.get(i).getValue().toString());
+            System.out.println((i + 1) + ". " + entries.get(i).toString());
         }
     }
 
     public void removeEntry(Scanner scanner) {
-        if (phoneBook.getSize() == 0) {
-            System.out.println("No records to remove!");
-            return;
-        }
-
-        final var entries = phoneBook.getAll();
-        for (int i = 0; i < entries.size(); i++) {
-            System.out.println((i + 1) + ". " + entries.get(i).getValue().toString());
-        }
-
-        System.out.print("Select a record: ");
-        final var selectionIndex = Integer.parseInt(scanner.nextLine());
-
-        phoneBook.remove(entries.get(selectionIndex - 1).getKey());
-        System.out.println("The record removed!");
+        System.out.println("not implemented");
+//        if (phoneBook.getSize() == 0) {
+//            System.out.println("No records to remove!");
+//            return;
+//        }
+//
+//        final var entries = phoneBook.getAll();
+//        for (int i = 0; i < entries.size(); i++) {
+//            System.out.println((i + 1) + ". " + entries.get(i).getValue().toString());
+//        }
+//
+//        System.out.print("Select a record: ");
+//        final var selectionIndex = Integer.parseInt(scanner.nextLine());
+//
+//        phoneBook.remove(entries.get(selectionIndex - 1).getKey());
+//        System.out.println("The record removed!");
     }
 
     public void editEntry(Scanner scanner) {
-        if (phoneBook.getSize() == 0) {
-            System.out.println("No records to edit!");
-            return;
-        }
-
-        final var entries = phoneBook.getAll();
-        for (int i = 0; i < entries.size(); i++) {
-            System.out.println((i + 1) + ". " + entries.get(i).getValue().toString());
-        }
-
-        System.out.print("Select a record: ");
-        final var selectionIndex = Integer.parseInt(scanner.nextLine());
-        System.out.print("Select a field (name, surname, number): ");
-        final var selectionAttribute = PersonAction.translateToMenuAction(scanner.nextLine());
-
-        final var builder = new Person.Builder(new NameValidator()).from(entries.get(selectionIndex - 1).getValue());
-        phoneBook.insert(new ReadPerson(scanner).readPerson(builder, selectionAttribute).build());
-
-        System.out.println("The record updated!");
+        System.out.println("not implemented");
+//        if (phoneBook.getSize() == 0) {
+//            System.out.println("No records to edit!");
+//            return;
+//        }
+//
+//        final var entries = phoneBook.getAll();
+//        for (int i = 0; i < entries.size(); i++) {
+//            System.out.println((i + 1) + ". " + entries.get(i).getValue().toString());
+//        }
+//
+//        System.out.print("Select a record: ");
+//        final var selectionIndex = Integer.parseInt(scanner.nextLine());
+//        System.out.print("Select a field (name, surname, number): ");
+//        final var selectionAttribute = PersonAction.translateToMenuAction(scanner.nextLine());
+//
+//        final var builder = new Person.Builder(new NameValidator()).from(entries.get(selectionIndex - 1).getValue());
+//        phoneBook.insert(new ReadPerson(scanner).readPerson(builder, selectionAttribute).build());
+//
+//        System.out.println("The record updated!");
     }
 }

@@ -3,7 +3,7 @@ package contacts.data.attributes;
 public class Address {
     private String address;
 
-    Address(String address) {
+    private Address(String address) {
         this.address = address;
     }
 
@@ -20,5 +20,9 @@ public class Address {
         return "Address{" +
                 "address='" + address + '\'' +
                 '}';
+    }
+
+    public static Address buildAddress(String address) {
+        return new Address(address);
     }
 }

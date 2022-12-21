@@ -1,18 +1,26 @@
 package contacts.pool;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Pool<T extends Keyed> {
+public class Pool {
 
-    private final Map<String, T> pool = new HashMap<>();
+    private final Map<String, Keyed> pool = new HashMap<>();
 
-    T get(String key) {
+    Keyed get(String key) {
         return pool.get(key);
     }
 
-    void put(Class<T> type, T element) {
+    void put(Keyed element) {
         pool.put(element.getKey(), element);
     }
 
+    Collection<Keyed> getAll() {
+        return pool.values();
+    }
+
+    int getSize() {
+        return pool.size();
+    }
 }
