@@ -24,6 +24,14 @@ public class ReadPerson {
                 System.out.print("Enter surname: ");
                 builder.surname(scanner.nextLine());
             }
+            case BIRTH -> {
+                System.out.print("Enter birth: ");
+                builder.birthDate(scanner.nextLine());
+            }
+            case GENDER -> {
+                System.out.print("Enter gender (M, F): ");
+                builder.gender(Gender.from(scanner.nextLine()));
+            }
             case NUMBER -> {
                 System.out.print("Enter number: ");
                 builder.phoneNumber(PhoneNumber.buildPhoneNumber(scanner.nextLine()));

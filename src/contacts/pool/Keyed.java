@@ -1,24 +1,30 @@
 package contacts.pool;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Scanner;
+import java.util.UUID;
 
 public abstract class Keyed {
-
+    private String myKey;
     protected LocalDateTime createdTime;
     protected LocalDateTime updatedTime;
 
     protected Keyed() {
+        myKey = this.getClass() + "_" + UUID.randomUUID();
         createdTime = LocalDateTime.now();
         updatedTime = createdTime;
     }
 
-    protected abstract String getKeyInternal();
-
-    protected String getKey() {
-        return this.getClass() + "-" + getKeyInternal();
+    protected final String getKey() {
+        return myKey;
     }
+
+    protected void copyKeyFrom(Keyed other) {
+        this.myKey = other.myKey;
+    }
+
+    public abstract Keyed updateFromSelf(Scanner scanner);
 
     public abstract String shortDesc();
 

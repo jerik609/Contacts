@@ -1,5 +1,6 @@
 package contacts.pool;
 
+import java.security.Key;
 import java.util.*;
 
 public class PoolManager {
@@ -42,6 +43,14 @@ public class PoolManager {
             return false;
         }
         poolMap.get(value.getClass()).put(value);
+        return true;
+    }
+
+    public <T extends Keyed> boolean remove(T value) {
+        if (!poolMap.containsKey(value.getClass())) {
+            return false;
+        }
+        poolMap.get(value.getClass()).remove(value.getKey());
         return true;
     }
 

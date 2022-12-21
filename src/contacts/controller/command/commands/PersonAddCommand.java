@@ -21,9 +21,4 @@ public class PersonAddCommand implements Command {
     public void execute() {
         contacts.add(person);
     }
-
-    @Override
-    public String toString() {
-        return "AddPersonCommand: " + person.getKey();
-    }
 }

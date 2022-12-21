@@ -1,7 +1,7 @@
 package contacts.input;
 
 public enum PersonAction {
-    NAME, SURNAME, NUMBER, UNKNOWN ;
+    NAME, SURNAME, BIRTH, GENDER, NUMBER, UNKNOWN ;
 
     public static PersonAction translateToMenuAction(String input) {
         try {

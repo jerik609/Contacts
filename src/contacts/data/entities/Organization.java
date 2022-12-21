@@ -3,6 +3,9 @@ package contacts.data.entities;
 import contacts.data.attributes.Address;
 import contacts.data.attributes.PhoneNumber;
 import contacts.input.validators.Validator;
+import contacts.pool.Keyed;
+
+import java.util.Scanner;
 
 public class Organization extends ContactDetails {
     private final String name;
@@ -13,16 +16,16 @@ public class Organization extends ContactDetails {
     }
 
     @Override
-    protected String getKeyInternal() {
-        return name;
-    }
-
-    @Override
     public String toString() {
         return "Organization name: " + name + "\n" +
                 "Address: " + address + "\n" +
                 "Number: " + phoneNumber + "\n" +
                 super.toString();
+    }
+
+    @Override
+    public Keyed updateFromSelf(Scanner scanner) {
+        return null;
     }
 
     @Override

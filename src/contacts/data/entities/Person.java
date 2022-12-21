@@ -3,7 +3,14 @@ package contacts.data.entities;
 import contacts.data.attributes.Address;
 import contacts.data.attributes.Gender;
 import contacts.data.attributes.PhoneNumber;
+import contacts.input.PersonAction;
+import contacts.input.ReadPerson;
+import contacts.input.validators.NameValidator;
 import contacts.input.validators.Validator;
+import contacts.pool.Keyed;
+
+import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Person extends ContactDetails {
     private final String firstname;
@@ -18,16 +25,6 @@ public class Person extends ContactDetails {
         this.birthDate = birthDate;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    protected String getKeyInternal() {
-        return null;
-    }
-
-    @Override
-    public String getKey() {
-        return surname + "," + firstname;
     }
 
     public String getFirstname() {
@@ -49,11 +46,26 @@ public class Person extends ContactDetails {
     @Override
     public String toString() {
         return "Name: " + firstname + "\n" +
-                "Surname: " + firstname + "\n" +
-                "Birth date: " + surname + "\n" +
+                "Surname: " + surname + "\n" +
+                "Birth date: " + birthDate + "\n" +
                 "Gender: " + gender + "\n" +
                 "Number: " + phoneNumber + "\n" +
                 super.toString();
+    }
+
+    @Override
+    public Keyed updateFromSelf(Scanner scanner) {
+        var builder = new Builder(new NameValidator());
+
+        System.out.print("Select a field (name, surname, birth, gender, number): ");
+        final var selection = PersonAction.translateToMenuAction(scanner.nextLine());
+
+        var updatedEntry = new ReadPerson(scanner).readPerson(builder.from(this), selection).build();
+        updatedEntry.createdTime = this.createdTime;
+        updatedEntry.updatedTime = LocalDateTime.now();
+        updatedEntry.copyKeyFrom(this);
+
+        return updatedEntry;
     }
 
     @Override

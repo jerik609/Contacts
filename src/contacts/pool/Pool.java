@@ -23,4 +23,8 @@ public class Pool {
     int getSize() {
         return pool.size();
     }
+
+    void remove(String key) {
+        pool.remove(key);
+    }
 }

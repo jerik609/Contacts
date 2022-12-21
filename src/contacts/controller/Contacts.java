@@ -2,6 +2,9 @@ package contacts.controller;
 
 import contacts.data.entities.Organization;
 import contacts.data.entities.Person;
+import contacts.input.PersonAction;
+import contacts.input.ReadPerson;
+import contacts.input.validators.NameValidator;
 import contacts.pool.Keyed;
 import contacts.pool.PoolManager;
 
@@ -38,49 +41,42 @@ public class Contacts {
         }
 
         System.out.print("Select a record: ");
-        var selection = scanner.nextLine();
-        System.out.println(entries.get(Integer.parseInt(selection) - 1));
+        final var selection = Integer.parseInt(scanner.nextLine()) - 1;
+        System.out.println(entries.get(selection));
     }
 
     public void removeEntry(Scanner scanner) {
-        System.out.println("not implemented");
-//        if (phoneBook.getSize() == 0) {
-//            System.out.println("No records to remove!");
-//            return;
-//        }
-//
-//        final var entries = phoneBook.getAll();
-//        for (int i = 0; i < entries.size(); i++) {
-//            System.out.println((i + 1) + ". " + entries.get(i).getValue().toString());
-//        }
-//
-//        System.out.print("Select a record: ");
-//        final var selectionIndex = Integer.parseInt(scanner.nextLine());
-//
-//        phoneBook.remove(entries.get(selectionIndex - 1).getKey());
-//        System.out.println("The record removed!");
+        if (phoneBook.getSize() == 0) {
+            System.out.println("No records to remove!");
+            return;
+        }
+
+        final var entries = phoneBook.getAll();
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
+        }
+
+        System.out.print("Select a record: ");
+        final var selection = Integer.parseInt(scanner.nextLine()) - 1;
+        final var entry = entries.get(selection);
+        phoneBook.remove(entry);
+        System.out.println("The record removed!");
     }
 
     public void editEntry(Scanner scanner) {
-        System.out.println("not implemented");
-//        if (phoneBook.getSize() == 0) {
-//            System.out.println("No records to edit!");
-//            return;
-//        }
-//
-//        final var entries = phoneBook.getAll();
-//        for (int i = 0; i < entries.size(); i++) {
-//            System.out.println((i + 1) + ". " + entries.get(i).getValue().toString());
-//        }
-//
-//        System.out.print("Select a record: ");
-//        final var selectionIndex = Integer.parseInt(scanner.nextLine());
-//        System.out.print("Select a field (name, surname, number): ");
-//        final var selectionAttribute = PersonAction.translateToMenuAction(scanner.nextLine());
-//
-//        final var builder = new Person.Builder(new NameValidator()).from(entries.get(selectionIndex - 1).getValue());
-//        phoneBook.insert(new ReadPerson(scanner).readPerson(builder, selectionAttribute).build());
-//
-//        System.out.println("The record updated!");
+        if (phoneBook.getSize() == 0) {
+            System.out.println("No records to edit!");
+            return;
+        }
+        final var entries = phoneBook.getAll();
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
+        }
+
+        System.out.print("Select a record: ");
+        final var selection = Integer.parseInt(scanner.nextLine()) - 1;
+        final var updatedEntry = entries.get(selection).updateFromSelf(scanner);
+        phoneBook.putValue(updatedEntry);
+        System.out.println("The record updated!");
     }
 }
