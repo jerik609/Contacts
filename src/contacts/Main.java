@@ -14,7 +14,7 @@ public class Main {
         final ReadPerson input = new ReadPerson(scanner);
         final Contacts contacts = new Contacts();
 
-        final Person.PersonBuilder personBuilder = new Person.PersonBuilder(new NameValidator());
+        final Person.Builder personBuilder = new Person.Builder(new NameValidator());
 
         var menuAction = MenuAction.EXIT;
         do {

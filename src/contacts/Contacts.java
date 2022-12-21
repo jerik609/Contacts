@@ -67,7 +67,7 @@ public class Contacts {
         System.out.print("Select a field (name, surname, number): ");
         final var selectionAttribute = PersonAction.translateToMenuAction(scanner.nextLine());
 
-        final var builder = new Person.PersonBuilder(new NameValidator()).fromOther(entries.get(selectionIndex - 1).getValue());
+        final var builder = new Person.Builder(new NameValidator()).from(entries.get(selectionIndex - 1).getValue());
         phoneBook.insert(new ReadPerson(scanner).readPerson(builder, selectionAttribute).build());
 
         System.out.println("The record updated!");

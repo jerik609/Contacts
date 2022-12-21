@@ -13,7 +13,7 @@ public class ReadPerson {
         this.scanner = scanner;
     }
 
-    public Person.PersonBuilder readPerson(Person.PersonBuilder builder, PersonAction action) {
+    public Person.Builder readPerson(Person.Builder builder, PersonAction action) {
         switch (action) {
             case NAME -> {
                 System.out.print("Enter name: ");
@@ -32,7 +32,7 @@ public class ReadPerson {
         return builder;
     }
 
-    public Person.PersonBuilder readPerson(Person.PersonBuilder builder) {
+    public Person.Builder readPerson(Person.Builder builder) {
         System.out.print("Enter the name: ");
         String firstname = scanner.nextLine();
 
