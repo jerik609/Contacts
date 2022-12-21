@@ -19,9 +19,15 @@ public class Organization extends ContactDetails {
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "name='" + name + '\'' +
-                "} " + super.toString();
+        return "Organization name: " + name + "\n" +
+                "Address: " + address + "\n" +
+                "Number: " + phoneNumber + "\n" +
+                super.toString();
+    }
+
+    @Override
+    public String shortDesc() {
+        return name;
     }
 
     public static class Builder {

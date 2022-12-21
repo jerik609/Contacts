@@ -6,7 +6,7 @@ import contacts.controller.selector.ContactsMenu;
 import java.util.Scanner;
 
 public class Controller {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
     private boolean stop = false;
 
@@ -17,7 +17,8 @@ public class Controller {
         stop = true;
     }
 
-    public Controller(Contacts contacts) {
+    public Controller(Scanner scanner, Contacts contacts) {
+        this.scanner = scanner;
         this.contacts = contacts;
     }
 

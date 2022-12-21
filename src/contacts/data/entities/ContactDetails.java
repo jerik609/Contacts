@@ -9,8 +9,13 @@ public abstract class ContactDetails extends Keyed {
     protected Address address;
 
     public ContactDetails(Address address, PhoneNumber phoneNumber) {
+        super();
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

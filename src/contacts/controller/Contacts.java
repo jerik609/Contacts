@@ -9,9 +9,11 @@ import java.util.Scanner;
 
 public class Contacts {
 
+    private final Scanner scanner;
     private final PoolManager phoneBook = new PoolManager();
 
-    public Contacts() {
+    public Contacts(Scanner scanner) {
+        this.scanner = scanner;
         phoneBook.addPool(Person.class);
         phoneBook.addPool(Organization.class);
     }
@@ -32,8 +34,12 @@ public class Contacts {
         }
         final var entries = phoneBook.getAll();
         for (int i = 0; i < entries.size(); i++) {
-            System.out.println((i + 1) + ". " + entries.get(i).toString());
+            System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
         }
+
+        System.out.print("Select a record: ");
+        var selection = scanner.nextLine();
+        System.out.println(entries.get(Integer.parseInt(selection) - 1));
     }
 
     public void removeEntry(Scanner scanner) {

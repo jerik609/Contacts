@@ -3,10 +3,13 @@ package contacts;
 import contacts.controller.Contacts;
 import contacts.controller.Controller;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        final Contacts contacts = new Contacts();
-        final Controller menu = new Controller(contacts);
+        final var scanner = new Scanner(System.in);
+        final var contacts = new Contacts(scanner);
+        final var menu = new Controller(scanner, contacts);
         menu.run();
     }
 }

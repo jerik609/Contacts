@@ -26,8 +26,6 @@ public class PhoneNumber {
 
     @Override
     public String toString() {
-        return "PhoneNumber{" +
-                "phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        return phoneNumber;
     }
 }

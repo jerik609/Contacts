@@ -31,35 +31,32 @@ public class PoolManager {
         return Optional.ofNullable(type.cast(poolMap.get(type).get(key)));
     }
 
+    /**
+     * Store a value in the pool manager
+     * @param value the value itself
+     * @return true if value was stored successfully
+     * @param <T> type of data stored in the pools
+     */
     public <T extends Keyed> boolean putValue(T value) {
         if (!poolMap.containsKey(value.getClass())) {
             return false;
         }
         poolMap.get(value.getClass()).put(value);
         return true;
-
-        //return putValue(value.getClass(), value);
     }
 
     /**
-     * Store a value in the pool manager
-     * @param type type of the value
-     * @param value the value itself
-     * @return true if value was stored successfully
-     * @param <T> type of data stored in the pools
+     * Get all elements from pools
+     * @return
      */
-    private <T extends Keyed> boolean putValue(Class<T> type, Keyed value) {
-        if (!poolMap.containsKey(type)) {
-            return false;
-        }
-        poolMap.get(type).put(value);
-        return true;
-    }
-
-    public List<? super Keyed> getAll() {
+    public List<Keyed> getAll() {
         return poolMap.values().stream().flatMap(pool -> pool.getAll().stream()).toList();
     }
 
+    /**
+     * Get total number of elements in all pools
+     * @return
+     */
     public int getSize() {
         return poolMap.values().stream().reduce(0, (integer, pool) -> integer + pool.getSize(), Integer::sum);
     }

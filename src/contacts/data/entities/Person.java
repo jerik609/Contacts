@@ -48,12 +48,17 @@ public class Person extends ContactDetails {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "firstname='" + firstname + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", gender=" + gender +
-                "} " + super.toString();
+        return "Name: " + firstname + "\n" +
+                "Surname: " + firstname + "\n" +
+                "Birth date: " + surname + "\n" +
+                "Gender: " + gender + "\n" +
+                "Number: " + phoneNumber + "\n" +
+                super.toString();
+    }
+
+    @Override
+    public String shortDesc() {
+        return firstname + " " + surname;
     }
 
     public static class Builder {

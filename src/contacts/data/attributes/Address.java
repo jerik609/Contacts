@@ -7,19 +7,9 @@ public class Address {
         this.address = address;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     @Override
     public String toString() {
-        return "Address{" +
-                "address='" + address + '\'' +
-                '}';
+        return address;
     }
 
     public static Address buildAddress(String address) {
