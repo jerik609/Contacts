@@ -1,7 +1,9 @@
-package contacts.controller.selector2;
+package contacts.controller.selector;
 
+import contacts.controller.Contacts;
 import contacts.controller.command.Command;
 import contacts.controller.command.commands.NoopCommand;
+import contacts.controller.command.commands.PersonAddCommand;
 import contacts.controller.selector.enums.EntityAction;
 import contacts.controller.selector.enums.EntityType;
 
@@ -16,9 +18,9 @@ public class ContactItemMenu implements Supplier<Command> {
 
     private final Map<EntityType, Supplier<Command>> menu = new HashMap<>();
 
-    public ContactItemMenu(Scanner scanner, EntityAction action) {
+    public ContactItemMenu(Scanner scanner, Contacts contacts, EntityAction action) {
         this.scanner = scanner;
-        menu.put(EntityType.PERSON, () -> new NoopCommand(action.name() + "-person"));
+        menu.put(EntityType.PERSON, () -> new PersonAddCommand(contacts, scanner));
         menu.put(EntityType.ORGANIZATION, () -> new NoopCommand(action.name() + "-organization"));
     }
 

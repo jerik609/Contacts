@@ -1,9 +1,9 @@
-package contacts.controller.selector2;
+package contacts.controller.selector;
 
+import contacts.controller.Contacts;
 import contacts.controller.Controller;
 import contacts.controller.command.Command;
-import contacts.controller.command.commands.NoopCommand;
-import contacts.controller.command.commands.StopCommand;
+import contacts.controller.command.commands.*;
 import contacts.controller.selector.enums.EntityAction;
 
 import java.security.InvalidParameterException;
@@ -17,14 +17,14 @@ public class ContactsMenu implements Supplier<Command> {
 
     private final Map<EntityAction, Supplier<Command>> menu = new HashMap<>();
 
-    public ContactsMenu(Controller controller, Scanner scanner) {
+    public ContactsMenu(Controller controller, Scanner scanner, Contacts contacts) {
         this.scanner = scanner;
         // TODO: reuse the ContactItemMenu
-        menu.put(EntityAction.ADD, new ContactItemMenu(scanner, EntityAction.ADD));
-        menu.put(EntityAction.REMOVE, () -> new NoopCommand("ContactsMenu -> REMOVE"));
-        menu.put(EntityAction.EDIT, () -> new NoopCommand("ContactsMenu -> EDIT"));
-        menu.put(EntityAction.COUNT, () -> new NoopCommand("ContactsMenu -> COUNT"));
-        menu.put(EntityAction.INFO, () -> new NoopCommand("ContactsMenu -> INFO"));
+        menu.put(EntityAction.ADD, new ContactItemMenu(scanner, contacts, EntityAction.ADD));
+        menu.put(EntityAction.REMOVE, () -> new ContactsRemoveCommand(scanner, contacts));
+        menu.put(EntityAction.EDIT, () -> new ContactsEditCommand(scanner, contacts));
+        menu.put(EntityAction.COUNT, () -> new ContactsCountCommand(contacts));
+        menu.put(EntityAction.INFO, () -> new ContactsInfoCommand(contacts));
         menu.put(EntityAction.EXIT, () -> new StopCommand(controller));
     }
 

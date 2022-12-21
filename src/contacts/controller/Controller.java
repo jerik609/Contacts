@@ -1,11 +1,7 @@
 package contacts.controller;
 
 import contacts.controller.command.CommandExecutor;
-import contacts.controller.selector.*;
-import contacts.controller.selector.enums.EntityAction;
-import contacts.controller.selector.enums.EntityType;
-import contacts.controller.selector2.ContactItemMenu;
-import contacts.controller.selector2.ContactsMenu;
+import contacts.controller.selector.ContactsMenu;
 
 import java.util.Scanner;
 
@@ -15,7 +11,6 @@ public class Controller {
     private boolean stop = false;
 
     private final Contacts contacts;
-    private final TypeSelector typeSelector;
     private final CommandExecutor commandExecutor = new CommandExecutor();
 
     public void stop() {
@@ -24,22 +19,11 @@ public class Controller {
 
     public Controller(Contacts contacts) {
         this.contacts = contacts;
-        this.typeSelector = new TypeSelector(scanner, contacts, this);
     }
 
     public void run() {
         do {
-//            System.out.print("Enter action (add, remove, edit, count, info, exit): ");
-//            final var actionStr = scanner.nextLine();
-//            final var action = EntityAction.translateFrom(actionStr);
-//
-//            System.out.print("Enter the type (person, organization): ");
-//            final var typeStr = scanner.nextLine();
-//            final var type = EntityType.translateFrom(typeStr);
-//
-//            var actionSelector = typeSelector.selectType(type);
-//            var command = actionSelector.selectAction(action);
-            var menu = new ContactsMenu(this, scanner);
+            var menu = new ContactsMenu(this, scanner, contacts);
             var command = menu.get();
             if (command != null) {
                 commandExecutor.acceptCommand(command);
