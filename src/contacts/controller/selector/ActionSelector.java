@@ -1,16 +1,20 @@
 package contacts.controller.selector;
 
 
+import contacts.controller.Controller;
 import contacts.controller.command.Command;
+import contacts.controller.command.commands.StopCommand;
 
 import java.security.InvalidParameterException;
 import java.util.Scanner;
 
 public abstract class ActionSelector {
     final Scanner scanner;
+    private final Controller controller;
 
-    ActionSelector(Scanner scanner) {
+    ActionSelector(Scanner scanner, Controller controller) {
         this.scanner = scanner;
+        this.controller = controller;
     }
 
     public Command selectAction() {
@@ -28,6 +32,11 @@ public abstract class ActionSelector {
         };
     }
 
+    final Command exitAction() {
+        System.out.println("Exiting...");
+        return new StopCommand(controller);
+    }
+
     abstract Command addAction();
 
     abstract Command removeAction();
@@ -37,6 +46,4 @@ public abstract class ActionSelector {
     abstract Command countAction();
 
     abstract Command infoAction();
-
-    abstract Command exitAction();
 }
