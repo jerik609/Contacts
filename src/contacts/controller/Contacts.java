@@ -20,16 +20,16 @@ public class Contacts {
 
     public void add(Keyed item) {
         phoneBook.putValue(item);
-        System.out.println("The record added.");
+        System.out.println("The record added.\n");
     }
 
     public void displayNumberOfEntries() {
-        System.out.println("The phone Book has " + phoneBook.getSize() + " records.");
+        System.out.println("The phone Book has " + phoneBook.getSize() + " records.\n");
     }
 
     public void listPhoneBook() {
         if (phoneBook.getSize() == 0) {
-            System.out.println("No records to list!");
+            System.out.println("No records to list!\n");
             return;
         }
         final var entries = phoneBook.getAll();
@@ -44,7 +44,7 @@ public class Contacts {
 
     public void removeEntry(Scanner scanner) {
         if (phoneBook.getSize() == 0) {
-            System.out.println("No records to remove!");
+            System.out.println("No records to remove!\n");
             return;
         }
 
@@ -57,12 +57,12 @@ public class Contacts {
         final var selection = Integer.parseInt(scanner.nextLine()) - 1;
         final var entry = entries.get(selection);
         phoneBook.remove(entry);
-        System.out.println("The record removed!");
+        System.out.println("The record removed!\n");
     }
 
     public void editEntry(Scanner scanner) {
         if (phoneBook.getSize() == 0) {
-            System.out.println("No records to edit!");
+            System.out.println("No records to edit!\n");
             return;
         }
         final var entries = phoneBook.getAll();
@@ -74,6 +74,6 @@ public class Contacts {
         final var selection = Integer.parseInt(scanner.nextLine()) - 1;
         final var updatedEntry = entries.get(selection).updateFromSelf(scanner);
         phoneBook.putValue(updatedEntry);
-        System.out.println("The record updated!");
+        System.out.println("The record updated!\n");
     }
 }

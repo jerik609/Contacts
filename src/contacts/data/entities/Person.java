@@ -47,8 +47,8 @@ public class Person extends ContactDetails {
     public String toString() {
         return "Name: " + firstname + "\n" +
                 "Surname: " + surname + "\n" +
-                "Birth date: " + birthDate + "\n" +
-                "Gender: " + gender + "\n" +
+                "Birth date: " + (birthDate.length() == 0 ? "[no data]" : birthDate) + "\n" +
+                "Gender: " + (gender == Gender.NON_BINARY ? "[no data]" : gender) + "\n" +
                 "Number: " + phoneNumber + "\n" +
                 super.toString();
     }

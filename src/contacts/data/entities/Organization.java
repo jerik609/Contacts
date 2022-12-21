@@ -4,6 +4,7 @@ import contacts.data.attributes.Address;
 import contacts.data.attributes.PhoneNumber;
 import contacts.input.OrganizationAction;
 import contacts.input.OrganizationReader;
+import contacts.input.validators.DefaultValidator;
 import contacts.input.validators.NameValidator;
 import contacts.input.validators.Validator;
 import contacts.pool.Keyed;
@@ -29,7 +30,7 @@ public class Organization extends ContactDetails {
 
     @Override
     public Keyed updateFromSelf(Scanner scanner) {
-        var builder = new Organization.Builder(new NameValidator());
+        var builder = new Organization.Builder(new DefaultValidator());
 
         System.out.print("Select a field (name, address, number): ");
         final var selection = OrganizationAction.translateToMenuAction(scanner.nextLine());
@@ -84,7 +85,7 @@ public class Organization extends ContactDetails {
             if (nameValidator.validate(name)) {
                 return new Organization(name, address, phoneNumber);
             } else {
-                System.out.println("Invalid organization: " + this);
+                System.out.println("Invalid organization: " + name);
                 return null;
             }
         }
