@@ -1,4 +1,4 @@
-package contacts.data;
+package contacts.data.attributes;
 
 public class Address {
     private String address;

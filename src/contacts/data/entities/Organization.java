@@ -1,4 +1,8 @@
-package contacts.data;
+package contacts.data.entities;
+
+import contacts.data.attributes.Address;
+import contacts.data.attributes.PhoneNumber;
+import contacts.validators.Validator;
 
 public class Organization extends ContactDetails {
     private final String name;
@@ -22,12 +26,14 @@ public class Organization extends ContactDetails {
     }
 
     public static class Builder {
+        private final Validator nameValidator;
+
         private String name;
         private Address address;
         private PhoneNumber phoneNumber;
 
-        public Builder() {
-
+        public Builder(Validator nameValidator) {
+            this.nameValidator = nameValidator;
         }
 
         public Builder name(String name) {
@@ -53,7 +59,12 @@ public class Organization extends ContactDetails {
         }
 
         public Organization build() {
-            return new Organization(name, address, phoneNumber);
+            if (nameValidator.validate(name)) {
+                return new Organization(name, address, phoneNumber);
+            } else {
+                System.out.println("Invalid organization: " + this);
+                return null;
+            }
         }
 
     }

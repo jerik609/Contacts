@@ -1,16 +1,21 @@
-package contacts.data;
+package contacts.data.entities;
 
+import contacts.data.attributes.Address;
+import contacts.data.attributes.Gender;
+import contacts.data.attributes.PhoneNumber;
 import contacts.validators.Validator;
 
 public class Person extends ContactDetails {
     private final String firstname;
     private final String surname;
+    private final Gender gender;
     private final PhoneNumber phoneNumber;
 
-    private Person(String firstname, String surname, Address address, PhoneNumber phoneNumber) {
+    private Person(String firstname, String surname, Gender gender, Address address, PhoneNumber phoneNumber) {
         super(address, phoneNumber);
         this.firstname = firstname;
         this.surname = surname;
+        this.gender = gender;
         this.phoneNumber = phoneNumber;
     }
 
@@ -38,9 +43,12 @@ public class Person extends ContactDetails {
 
     @Override
     public String toString() {
-        return firstname + " "
-                + surname + ", "
-                + (phoneNumber == null ? "[no number]" : phoneNumber.getPhoneNumber());
+        return "Person{" +
+                "firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", gender=" + gender +
+                ", phoneNumber=" + phoneNumber +
+                "} " + super.toString();
     }
 
     public static class Builder {
@@ -48,6 +56,7 @@ public class Person extends ContactDetails {
 
         private String firstname;
         private String surname;
+        private Gender gender;
         private Address address;
         private PhoneNumber phoneNumber;
 
@@ -79,13 +88,14 @@ public class Person extends ContactDetails {
             this.firstname = other.firstname;
             this.surname = other.surname;
             this.address = other.address;
+            this.gender = other.gender;
             this.phoneNumber = other.phoneNumber; // we can do this, phone number is immutable
             return this;
         }
 
         public Person build() {
             if (nameValidator.validate(firstname) && nameValidator.validate(surname)) {
-                return new Person(firstname, surname, address, phoneNumber);
+                return new Person(firstname, surname, gender, address, phoneNumber);
             } else {
                 System.out.println("Invalid person: " + this);
                 return null;
@@ -94,10 +104,11 @@ public class Person extends ContactDetails {
 
         @Override
         public String toString() {
-            return "PersonBuilder{" +
+            return "Builder{" +
                     "nameValidator=" + nameValidator +
                     ", firstname='" + firstname + '\'' +
                     ", surname='" + surname + '\'' +
+                    ", gender=" + gender +
                     ", address=" + address +
                     ", phoneNumber=" + phoneNumber +
                     '}';

@@ -1,6 +1,6 @@
-package contacts;
+package contacts.menu;
 
-import contacts.data.Person;
+import contacts.data.entities.Person;
 import contacts.input.PersonAction;
 import contacts.input.ReadPerson;
 import contacts.pool.OldPool;
@@ -12,7 +12,7 @@ public class Contacts {
 
     private final OldPool<Person> phoneBook = new OldPool<>();
 
-    void addPerson(Person person) {
+    public void addPerson(Person person) {
         phoneBook.insert(person);
         System.out.println("The record added.");
     }
@@ -21,7 +21,7 @@ public class Contacts {
         System.out.println("The phone Book has " + phoneBook.getSize() + " records.");
     }
 
-    void listPhoneBook() {
+    public void listPhoneBook() {
         if (phoneBook.getSize() == 0) {
             System.out.println("No records to list!");
             return;
@@ -33,7 +33,7 @@ public class Contacts {
         }
     }
 
-    void removeEntry(Scanner scanner) {
+    public void removeEntry(Scanner scanner) {
         if (phoneBook.getSize() == 0) {
             System.out.println("No records to remove!");
             return;
@@ -51,7 +51,7 @@ public class Contacts {
         System.out.println("The record removed!");
     }
 
-    void editEntry(Scanner scanner) {
+    public void editEntry(Scanner scanner) {
         if (phoneBook.getSize() == 0) {
             System.out.println("No records to edit!");
             return;
