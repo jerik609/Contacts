@@ -1,6 +1,5 @@
 package contacts.controller.selector;
 
-
 import contacts.controller.Controller;
 import contacts.controller.command.Command;
 import contacts.controller.command.commands.StopCommand;
@@ -17,10 +16,7 @@ public abstract class ActionSelector {
         this.controller = controller;
     }
 
-    public Command selectAction() {
-        System.out.print("Enter action (add, remove, edit, count, info, exit): ");
-        final var actionStr = scanner.nextLine();
-        final var action = Action.translateToMenuAction(actionStr);
+    public Command selectAction(EntityAction action) {
         return switch (action) {
             case ADD -> addAction();
             case REMOVE -> removeAction();
@@ -28,7 +24,7 @@ public abstract class ActionSelector {
             case COUNT -> countAction();
             case INFO -> infoAction();
             case EXIT -> exitAction();
-            case UNKNOWN -> throw new InvalidParameterException("Unknown action: " + actionStr);
+            case UNKNOWN -> throw new InvalidParameterException("Unknown action: " + action.getOriginalValue());
         };
     }
 
