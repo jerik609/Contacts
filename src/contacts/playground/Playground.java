@@ -84,7 +84,7 @@ public class Playground {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         var tree = new Tree<>(Node.createRootNode("animal", "animal"));
 
         var root = tree.getRoot();
@@ -98,7 +98,7 @@ public class Playground {
         System.out.println("whatever");
     }
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         final var scanner = new Scanner(System.in);
         final var contacts = new Contacts(scanner);
 

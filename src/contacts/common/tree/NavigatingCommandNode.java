@@ -6,22 +6,24 @@ import contacts.controller.command.CommandExecutor;
 import java.util.List;
 import java.util.function.Supplier;
 
-public abstract class NavigatingCommandNode extends Node<Supplier<List<Command>>> {
+public abstract class NavigatingCommandNode extends Node<String> {
     private final CommandExecutor executor;
+    private final Supplier<List<Command>> commands;
 
     protected NavigatingCommandNode(
             String key,
             NavigatingCommandNode parent,
             CommandExecutor executor,
-            Supplier<List<Command>> value) {
-        super(key, value, parent);
+            Supplier<List<Command>> commands) {
+        super(key, key, parent);
         this.executor = executor;
+        this.commands = commands;
     }
 
     protected abstract NavigatingCommandNode navigate();
 
     public final NavigatingCommandNode execute() {
-        this.getValue().get().forEach(executor::acceptCommand);
+        this.commands.get().forEach(executor::acceptCommand);
         executor.executeCommands();
         return navigate();
     }

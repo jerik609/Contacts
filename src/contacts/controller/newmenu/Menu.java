@@ -1,5 +1,6 @@
 package contacts.controller.newmenu;
 
+import contacts.common.tree.NavigatingCommandNode;
 import contacts.controller.Contacts;
 import contacts.controller.command.CommandExecutor;
 import contacts.controller.command.commands.*;
@@ -12,7 +13,7 @@ public class Menu {
     private final Scanner scanner;
     private final Contacts contacts;
     private final CommandExecutor commandExecutor = new CommandExecutor();
-    private BaseItem currentItem;
+    private NavigatingCommandNode currentItem;
     private boolean stop = false;
 
     private void constructMenu(Scanner scanner) {
@@ -57,7 +58,7 @@ public class Menu {
 //        root.addChild("count", itemCount);
 //        root.addChild("exit", itemExit);
 //
-//        currentItem = root;
+        currentItem = root;
     }
 
     public Menu(Scanner scanner, Contacts contacts) {
@@ -68,9 +69,9 @@ public class Menu {
 
     public void run() {
         while (!stop) {
-            currentItem = currentItem.executeItem();
+            currentItem = currentItem.execute();
         }
-        contacts.saveData();
+        //contacts.saveData();
     }
 
     public void stop() {

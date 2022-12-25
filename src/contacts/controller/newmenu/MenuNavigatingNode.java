@@ -6,7 +6,6 @@ import contacts.controller.command.Command;
 import contacts.controller.command.CommandExecutor;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
@@ -17,9 +16,9 @@ public class MenuNavigatingNode extends NavigatingCommandNode {
             String key,
             NavigatingCommandNode parent,
             CommandExecutor executor,
-            Supplier<List<Command>> value,
+            Supplier<List<Command>> commands,
             Scanner scanner) {
-        super(key, parent, executor, value);
+        super(key, parent, executor, commands);
         this.scanner = scanner;
     }
 

@@ -39,6 +39,14 @@ public class Node<T> {
         this.value = value;
         this.parent = parent;
         this.children.putAll(children);
+        // check if parent has such child (if we're not root)
+        if (parent != null) {
+            if (parent.getChildByKey(key).isPresent()) {
+                throw new InvalidParameterException("parent already has child with key: " + key);
+            }
+            // add as child of our parent
+            parent.addChild(this);
+        }
     }
 
     protected Node(String key, T value, Node<T> parent) {
