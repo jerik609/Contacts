@@ -14,31 +14,35 @@ import java.util.*;
 public class Node<T> {
     private final Node<T> parent;
     private final LinkedHashMap<String, Node<T>> children = new LinkedHashMap<>();
-    private T value;
+    private final String key; // a unique identifier of the node
+    private T value; // the functional value we actually store in the tree (can be anything)
 
-    public static <T> Node<T> createRootNode(T value, Map<String, Node<T>> children) {
-        return new Node<>(value, null, children);
+    public static <T> Node<T> createRootNode(String key, T value, Map<String, Node<T>> children) {
+        return new Node<>(key, value, null, children);
     }
 
-    public static <T> Node<T> createRootNode(T value) {
-        return new Node<>(value, null, Collections.emptyMap());
+    public static <T> Node<T> createRootNode(String key, T value) {
+        return new Node<>(key, value, null, Collections.emptyMap());
     }
 
-    public static <T> Node<T> createInternalNode(T value, Node<T> parent, Map<String, Node<T>> children) {
+    public static <T> Node<T> createInternalNode(String key, T value, Node<T> parent) {
         if (parent == null) {
             throw new InvalidParameterException("Node must not have a null parent");
         }
-        return new Node<>(value, parent, children);
+        var node = new Node<>(key, value, parent);
+        parent.addChild(node);
+        return node;
     }
 
-    public Node(T value, Node<T> parent, Map<String, Node<T>> children) {
+    protected Node(String key, T value, Node<T> parent, Map<String, Node<T>> children) {
+        this.key = key;
+        this.value = value;
         this.parent = parent;
         this.children.putAll(children);
     }
 
-    public Node(T value, Node<T> parent) {
-        this.value = value;
-        this.parent = parent;
+    protected Node(String key, T value, Node<T> parent) {
+        this(key, value, parent, Collections.emptyMap());
     }
 
     public boolean isRoot() {
@@ -47,6 +51,10 @@ public class Node<T> {
 
     public boolean isLeaf() {
         return children.isEmpty();
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public void setValue(T value) {
@@ -85,12 +93,12 @@ public class Node<T> {
         }
     }
 
-    public boolean addChild(String key, Node<T> node) {
+    public boolean addChild(Node<T> node) {
         if (children.containsKey(key)) {
             System.out.println("child exists with key = " + key);
             return false;
         } else {
-            children.put(key, node);
+            children.put(node.key, node);
             return true;
         }
     }

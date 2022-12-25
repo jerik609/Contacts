@@ -30,7 +30,7 @@ public class Contacts {
         }
     }
 
-    void saveData() {
+    public void saveData() {
         try {
             dataSaver.saveData();
         } catch (IOException ex) {

@@ -4,6 +4,7 @@ import contacts.controller.command.Command;
 import contacts.controller.command.CommandExecutor;
 import contacts.common.tree.Node;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
@@ -12,7 +13,7 @@ import java.util.function.Supplier;
  */
 public class ActionItem extends BaseItem {
     private final CommandExecutor commandExecutor;
-    private final Supplier<Command> commandSupplier;
+    private final Supplier<List<Command>> commandSupplier;
 
     public ActionItem(
             String value,
@@ -27,8 +28,9 @@ public class ActionItem extends BaseItem {
 
     @Override
     BaseItem executeItem() {
-        commandExecutor.acceptCommand(commandSupplier.get());
-        commandExecutor.executeCommands();
+        for (var command : commandSupplier.get()) {
+            commandExecutor.acceptCommand(command);
+            commandExecutor.executeCommands();
         //TODO yet another cast, we can do better via polymorphism
         return (BaseItem) this.getParent().orElseThrow(() -> new RuntimeException("action node has no parent!"));
     }

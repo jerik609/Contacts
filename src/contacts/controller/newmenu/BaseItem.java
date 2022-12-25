@@ -5,11 +5,11 @@ import contacts.common.tree.Node;
 import java.util.Map;
 import java.util.Scanner;
 
-public abstract class BaseItem extends Node<String> {
+public abstract class BaseItem extends Node<BaseItem> {
     protected final Scanner scanner;
 
-    public BaseItem(String value, Node<String> parent, Map<String, Node<String>> children, Scanner scanner) {
-        super(value, parent, children);
+    public BaseItem(String key, Node<String> parent, Map<String, Node<String>> children, Scanner scanner) {
+        super(value, , parent, children);
         this.scanner = scanner;
     }
 

@@ -2,10 +2,9 @@ package contacts.controller.newmenu;
 
 import contacts.controller.Contacts;
 import contacts.controller.command.CommandExecutor;
-import contacts.controller.command.commands.ContactsCountCommand;
-import contacts.controller.command.commands.NoopCommand;
-import contacts.controller.command.commands.NewMenuStopCommand;
+import contacts.controller.command.commands.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -19,16 +18,22 @@ public class Menu {
         var root = new MenuItem("menu", null, scanner);
 
         var itemAdd = new MenuItem("add", root, scanner);
-        var itemList = new MenuItem("list", root, scanner);
-        var itemSearch = new ActionItem("search", root, scanner, commandExecutor, () -> new NoopCommand("search"));
-        var itemCount = new ActionItem("count", root, scanner, commandExecutor, () -> new ContactsCountCommand(contacts));
-        var itemExit = new ActionItem("exit", root, scanner, commandExecutor, () -> new NewMenuStopCommand(this));
+        var itemList = new ActionItem("list", root, scanner, commandExecutor,
+                () -> List.of(new ContactsListCommand(contacts)));
+        var itemSearch = new ActionItem("search", root, scanner, commandExecutor,
+                () -> List.of(new ContactsListCommand(contacts), new NewMenuSearchCommand(contacts)));
+        var itemCount = new ActionItem("count", root, scanner, commandExecutor,
+                () -> List.of(new ContactsCountCommand(contacts)));
+        var itemExit = new ActionItem("exit", root, scanner, commandExecutor,
+                () -> List.of(new NewMenuStopCommand(this)));
 
         root.addChild("add", itemAdd);
 
-        //TODO: we can merge new (with parent) and adding of the child to the parent
-        var itemPerson = new MenuItem("person", itemAdd, scanner);
-        var itemOrganization = new MenuItem("organization", itemAdd, scanner);
+        //TODO: we can merge new (with parent) and adding of the child to the parent (will make the tree more consistent)
+        var itemPerson = new ActionItem("person", itemAdd, scanner, commandExecutor,
+                () -> List.of(new PersonAddCommand(contacts, scanner)));
+        var itemOrganization = new ActionItem("organization", itemAdd, scanner, commandExecutor,
+                () -> List.of(new OrganizationAddCommand(contacts, scanner)));
 
         itemAdd.addChild("person", itemPerson);
         itemAdd.addChild("organization", itemOrganization);
@@ -51,6 +56,7 @@ public class Menu {
         while (!stop) {
             currentItem = currentItem.executeItem();
         }
+        contacts.saveData();
     }
 
     public void stop() {

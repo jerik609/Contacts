@@ -24,7 +24,7 @@ public class ContactsMenu implements Supplier<Command> {
         menu.put(EntityAction.REMOVE, () -> new ContactsRemoveCommand(scanner, contacts));
         menu.put(EntityAction.EDIT, () -> new ContactsEditCommand(scanner, contacts));
         menu.put(EntityAction.COUNT, () -> new ContactsCountCommand(contacts));
-        menu.put(EntityAction.INFO, () -> new ContactsInfoCommand(contacts));
+        menu.put(EntityAction.INFO, () -> new ContactsListCommand(contacts));
         menu.put(EntityAction.EXIT, () -> new StopCommand(controller));
     }
 

@@ -84,26 +84,21 @@ public class Playground {
         }
     }
 
-    public static void main2(String[] args) {
-        var tree = new Tree<>(Node.createRootNode("animal"));
+    public static void main(String[] args) {
+        var tree = new Tree<>(Node.createRootNode("animal", "animal"));
 
         var root = tree.getRoot();
 
-        var nodeMammals = new Node<>("mammals", root);
-        var nodeLizards = new Node<>("lizards", root);
-        var nodeInsects = new Node<>("insects", root);
+        var nodeMammals = Node.createInternalNode("mammals", "mammals", root);
+        var nodeLizards = Node.createInternalNode("lizards", "lizards", root);
+        var nodeInsects = Node.createInternalNode("insects", "insects", root);
 
-        root.addChild("mammals", nodeMammals);
-        root.addChild("lizards", nodeLizards);
-        root.addChild("insects", nodeInsects);
-
-        var nodeHuman = new Node<>("human", nodeMammals);
-        nodeMammals.addChild("humans", nodeHuman);
+        var nodeHuman = Node.createInternalNode("humans", "humans", nodeMammals);
 
         System.out.println("whatever");
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         final var scanner = new Scanner(System.in);
         final var contacts = new Contacts(scanner);
 
