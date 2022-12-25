@@ -1,4 +1,4 @@
-package contacts.controller.menu;
+package contacts.controller.newmenu;
 
 import contacts.controller.Contacts;
 import contacts.controller.command.CommandExecutor;

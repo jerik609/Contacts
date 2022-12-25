@@ -2,7 +2,7 @@ package contacts.data.entities;
 
 import contacts.data.attributes.Address;
 import contacts.data.attributes.PhoneNumber;
-import contacts.pool.Keyed;
+import contacts.common.pool.Keyed;
 
 public abstract class ContactDetails extends Keyed {
     protected PhoneNumber phoneNumber;

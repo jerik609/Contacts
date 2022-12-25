@@ -1,4 +1,4 @@
-package contacts.controller.menu.tree;
+package contacts.common.tree;
 
 import java.security.InvalidParameterException;
 import java.util.*;

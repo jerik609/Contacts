@@ -1,4 +1,4 @@
-package contacts.pool;
+package contacts.common.pool;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

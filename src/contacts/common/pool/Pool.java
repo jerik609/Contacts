@@ -1,4 +1,4 @@
-package contacts.pool;
+package contacts.common.pool;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -1,12 +1,12 @@
 package contacts.playground;
 
 import contacts.controller.Contacts;
-import contacts.controller.menu.Menu;
-import contacts.controller.menu.tree.Node;
-import contacts.controller.menu.tree.Tree;
+import contacts.controller.newmenu.Menu;
+import contacts.common.tree.Node;
+import contacts.common.tree.Tree;
 import contacts.input.validators.NameValidator;
 import contacts.input.validators.PhoneNumberValidator;
-import contacts.pool.Keyed;
+import contacts.common.pool.Keyed;
 
 import java.util.*;
 

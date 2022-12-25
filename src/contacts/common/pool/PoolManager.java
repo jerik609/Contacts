@@ -1,4 +1,4 @@
-package contacts.pool;
+package contacts.common.pool;
 
 import java.util.*;
 import java.util.stream.Stream;

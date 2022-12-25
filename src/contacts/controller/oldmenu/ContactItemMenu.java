@@ -1,11 +1,11 @@
-package contacts.controller.menu;
+package contacts.controller.oldmenu;
 
 import contacts.controller.Contacts;
 import contacts.controller.command.Command;
 import contacts.controller.command.commands.OrganizationAddCommand;
 import contacts.controller.command.commands.PersonAddCommand;
-import contacts.controller.menu.enums.EntityAction;
-import contacts.controller.menu.enums.EntityType;
+import contacts.controller.oldmenu.enums.EntityAction;
+import contacts.controller.oldmenu.enums.EntityType;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;

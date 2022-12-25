@@ -1,6 +1,6 @@
-package contacts.controller.menu;
+package contacts.controller.newmenu;
 
-import contacts.controller.menu.tree.Node;
+import contacts.common.tree.Node;
 
 import java.util.Map;
 import java.util.Scanner;

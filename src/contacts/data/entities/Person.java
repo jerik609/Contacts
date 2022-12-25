@@ -7,7 +7,7 @@ import contacts.input.PersonAction;
 import contacts.input.PersonReader;
 import contacts.input.validators.NameValidator;
 import contacts.input.validators.Validator;
-import contacts.pool.Keyed;
+import contacts.common.pool.Keyed;
 
 import java.io.Serial;
 import java.io.Serializable;

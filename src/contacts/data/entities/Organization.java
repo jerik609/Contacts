@@ -6,7 +6,7 @@ import contacts.input.OrganizationAction;
 import contacts.input.OrganizationReader;
 import contacts.input.validators.DefaultValidator;
 import contacts.input.validators.Validator;
-import contacts.pool.Keyed;
+import contacts.common.pool.Keyed;
 
 import java.io.Serial;
 import java.io.Serializable;

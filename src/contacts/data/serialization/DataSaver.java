@@ -2,8 +2,8 @@ package contacts.data.serialization;
 
 import contacts.data.entities.Organization;
 import contacts.data.entities.Person;
-import contacts.pool.Keyed;
-import contacts.pool.PoolManager;
+import contacts.common.pool.Keyed;
+import contacts.common.pool.PoolManager;
 
 import java.io.*;
 import java.nio.file.Paths;

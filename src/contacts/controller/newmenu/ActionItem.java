@@ -1,10 +1,9 @@
-package contacts.controller.menu;
+package contacts.controller.newmenu;
 
 import contacts.controller.command.Command;
 import contacts.controller.command.CommandExecutor;
-import contacts.controller.menu.tree.Node;
+import contacts.common.tree.Node;
 
-import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
