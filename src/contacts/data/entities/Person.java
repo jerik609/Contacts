@@ -9,10 +9,12 @@ import contacts.input.validators.NameValidator;
 import contacts.input.validators.Validator;
 import contacts.pool.Keyed;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class Person extends ContactDetails {
+public class Person extends ContactDetails implements Serializable {
     private final String firstname;
     private final String surname;
     private final String birthDate;
@@ -142,6 +144,40 @@ public class Person extends ContactDetails {
                     ", address=" + address +
                     ", phoneNumber=" + phoneNumber +
                     '}';
+        }
+    }
+
+    @Serial
+    Object writeReplace() {
+        return new PersonProxy(this);
+    }
+
+    public static class PersonProxy implements Serializable {
+        private final String firstname;
+        private final String surname;
+        private final String birthDate;
+        private final String gender;
+        private final String address;
+        private final String phoneNumber;
+
+        public PersonProxy(Person person) {
+            this.firstname = person.firstname;
+            this.surname = person.surname;
+            this.birthDate = person.birthDate;
+            this.gender = String.valueOf(person.gender.initValue);
+            this.address = person.address.getAddress();
+            this.phoneNumber = person.phoneNumber.getPhoneNumber();
+        }
+
+        @Serial
+        Object readResolve() {
+            var builder = new Builder(new NameValidator())
+                    .firstname(firstname)
+                    .surname(surname)
+                    .birthDate(birthDate)
+                    .gender(Gender.from(gender))
+                    .phoneNumber(PhoneNumber.buildPhoneNumber(phoneNumber));
+            return builder.build();
         }
     }
 }

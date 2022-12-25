@@ -5,14 +5,15 @@ import contacts.data.attributes.PhoneNumber;
 import contacts.input.OrganizationAction;
 import contacts.input.OrganizationReader;
 import contacts.input.validators.DefaultValidator;
-import contacts.input.validators.NameValidator;
 import contacts.input.validators.Validator;
 import contacts.pool.Keyed;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class Organization extends ContactDetails {
+public class Organization extends ContactDetails implements Serializable {
     private final String name;
 
     private Organization(String name, Address address, PhoneNumber phoneNumber) {
@@ -89,6 +90,31 @@ public class Organization extends ContactDetails {
                 return null;
             }
         }
+    }
 
+    @Serial
+    Object writeReplace() {
+        return new OrganizationProxy(this);
+    }
+
+    public static class OrganizationProxy implements Serializable {
+        private final String name;
+        private final String address;
+        private final String phoneNumber;
+
+        public OrganizationProxy(Organization organization) {
+            this.name = organization.name;
+            this.address = organization.address.getAddress();
+            this.phoneNumber = organization.phoneNumber.getPhoneNumber();
+        }
+
+        @Serial
+        Object readResolve() {
+            var builder = new Builder(new DefaultValidator())
+                    .name(name)
+                    .address(Address.buildAddress(address))
+                    .phoneNumber(PhoneNumber.buildPhoneNumber(phoneNumber));
+            return builder.build();
+        }
     }
 }

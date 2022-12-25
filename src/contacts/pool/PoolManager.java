@@ -1,6 +1,7 @@
 package contacts.pool;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class PoolManager {
     private final Map<Class<?>, Pool> poolMap = new HashMap<>();
@@ -53,12 +54,27 @@ public class PoolManager {
         return true;
     }
 
+    //TODO: optimize using streams? -> do not provide a list, but a stream of elements
+    //      but we need to somehow index these items to display them properly for selection?
     /**
      * Get all elements from pools
      * @return
      */
     public List<Keyed> getAll() {
         return poolMap.values().stream().flatMap(pool -> pool.getAll().stream()).toList();
+    }
+
+    /**
+     * Gets a pool by type as a stream.
+     * @param type the pool to stream from
+     * @return stream of items
+     * @param <T> type of the items
+     */
+    public <T extends Keyed> Stream<Keyed> getPoolAsStream(Class<T> type) {
+        if (!poolMap.containsKey(type)) {
+            return Stream.empty();
+        }
+        return poolMap.get(type).getAll().stream();
     }
 
     /**

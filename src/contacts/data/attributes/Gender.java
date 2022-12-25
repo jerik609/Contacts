@@ -3,6 +3,8 @@ package contacts.data.attributes;
 public enum Gender {
     FEMALE, MALE, NON_BINARY, ;
 
+    public final char initValue = this.name().charAt(0);
+
     public static Gender from(String value) {
         if (value.length() != 1) {
             return Gender.NON_BINARY;

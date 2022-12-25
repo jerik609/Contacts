@@ -3,6 +3,7 @@ package contacts.controller;
 import contacts.controller.command.CommandExecutor;
 import contacts.controller.menu.ContactsMenu;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Controller {
@@ -31,5 +32,6 @@ public class Controller {
             }
             commandExecutor.executeCommands();
         } while (!stop);
+        contacts.saveData();
     }
 }

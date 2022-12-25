@@ -2,20 +2,40 @@ package contacts.controller;
 
 import contacts.data.entities.Organization;
 import contacts.data.entities.Person;
+import contacts.data.serialization.DataSaver;
 import contacts.pool.Keyed;
 import contacts.pool.PoolManager;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Contacts {
 
     private final Scanner scanner;
     private final PoolManager phoneBook = new PoolManager();
+    private final DataSaver dataSaver = new DataSaver(phoneBook);
 
     public Contacts(Scanner scanner) {
         this.scanner = scanner;
         phoneBook.addPool(Person.class);
         phoneBook.addPool(Organization.class);
+        loadData();
+    }
+
+    private void loadData() {
+        try {
+            dataSaver.loadData();
+        } catch (IOException ex) {
+            System.out.println("Failed to load data!");
+        }
+    }
+
+    void saveData() {
+        try {
+            dataSaver.saveData();
+        } catch (IOException ex) {
+            System.out.println("Failed to save data!");
+        }
     }
 
     public void add(Keyed item) {
