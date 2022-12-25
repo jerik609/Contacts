@@ -1,9 +1,7 @@
 package contacts.controller.menu.tree;
 
 import java.security.InvalidParameterException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Tree implementation
@@ -15,11 +13,15 @@ import java.util.Optional;
  */
 public class Node<T> {
     private final Node<T> parent;
-    private final Map<String, Node<T>> children = new HashMap<>();
+    private final LinkedHashMap<String, Node<T>> children = new LinkedHashMap<>();
     private T value;
 
     public static <T> Node<T> createRootNode(T value, Map<String, Node<T>> children) {
         return new Node<>(value, null, children);
+    }
+
+    public static <T> Node<T> createRootNode(T value) {
+        return new Node<>(value, null, Collections.emptyMap());
     }
 
     public static <T> Node<T> createInternalNode(T value, Node<T> parent, Map<String, Node<T>> children) {
@@ -35,7 +37,12 @@ public class Node<T> {
     }
 
     public Node(T value, Node<T> parent) {
+        this.value = value;
         this.parent = parent;
+    }
+
+    public boolean isRoot() {
+        return parent == null;
     }
 
     public boolean isLeaf() {
@@ -50,16 +57,16 @@ public class Node<T> {
         return value;
     }
 
-    public Optional<Node<T>> getParent(String key) {
+    public Optional<Node<T>> getParent() {
         return Optional.ofNullable(parent);
+    }
+
+    public LinkedHashMap<String, Node<T>> getAllChildren() {
+        return children;
     }
 
     public Optional<Node<T>> getChildByKey(String key) {
         return Optional.ofNullable(children.get(key));
-    }
-
-    public Map<String, Node<T>> getAllChildren() {
-        return children;
     }
 
     public boolean removeLeaf(String key) {

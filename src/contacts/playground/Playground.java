@@ -1,5 +1,7 @@
 package contacts.playground;
 
+import contacts.controller.Contacts;
+import contacts.controller.menu.Menu;
 import contacts.controller.menu.tree.Node;
 import contacts.controller.menu.tree.Tree;
 import contacts.input.validators.NameValidator;
@@ -83,9 +85,9 @@ public class Playground {
     }
 
     public static void main2(String[] args) {
-        var tree = new Tree<>("animal");
-        var root = tree.getRoot();
+        var tree = new Tree<>(Node.createRootNode("animal"));
 
+        var root = tree.getRoot();
 
         var nodeMammals = new Node<>("mammals", root);
         var nodeLizards = new Node<>("lizards", root);
@@ -99,6 +101,28 @@ public class Playground {
         nodeMammals.addChild("humans", nodeHuman);
 
         System.out.println("whatever");
+    }
+
+    public static void main(String[] args) {
+        final var scanner = new Scanner(System.in);
+        final var contacts = new Contacts(scanner);
+
+
+
+
+        var menu = new Menu(scanner, contacts);
+
+        menu.run();
+
+
+//        var root = Node.createRootNode("menu");
+//
+//        var nodeAdd = new Node<>("add", root);
+//        var nodeList = new Node<>("list", root);
+//        var nodeSearch = new Node<>("search", root);
+//        var nodeCount = new Node<>("count", root);
+//        var nodeExit = new Node<>("exit", root);
+
     }
 
 }

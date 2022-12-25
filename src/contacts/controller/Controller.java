@@ -23,6 +23,12 @@ public class Controller {
         this.contacts = contacts;
     }
 
+    public void run2() {
+
+
+
+    }
+
     public void run() {
         do {
             var menu = new ContactsMenu(this, scanner, contacts);

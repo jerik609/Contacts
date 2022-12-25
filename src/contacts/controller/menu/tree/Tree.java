@@ -1,13 +1,15 @@
 package contacts.controller.menu.tree;
 
-import java.util.Collections;
+import java.security.InvalidParameterException;
 
 public class Tree<T> {
     private final Node<T> root;
 
-
-    public Tree(T valueOfRoot) {
-        root = Node.createRootNode(valueOfRoot, Collections.emptyMap());
+    public Tree(Node<T> rootNode) {
+        if (!rootNode.isRoot()) {
+            throw new InvalidParameterException("the provided root node is not a root");
+        }
+        root = rootNode;
     }
 
     public Node<T> getRoot() {

@@ -3,7 +3,6 @@ package contacts;
 import contacts.controller.Contacts;
 import contacts.controller.Controller;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
