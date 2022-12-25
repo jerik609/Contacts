@@ -2,9 +2,9 @@ package contacts.playground;
 
 import contacts.input.validators.NameValidator;
 import contacts.input.validators.PhoneNumberValidator;
+import contacts.pool.Keyed;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Playground {
 
@@ -66,6 +66,27 @@ public class Playground {
         System.out.println("BlahRat before: " + blah);
         rat.addProp("ratFunky");
         System.out.println("BlahRat after: " + blah);
+    }
+
+    static class ListingItem {
+        private final String displayName;
+        private final String key;
+        private final Class<? extends Keyed> type;
+
+        ListingItem(String displayName, String key, Class<? extends Keyed> type) {
+            this.displayName = displayName;
+            this.key = key;
+            this.type = type;
+        }
+    }
+
+    public static void main(String[] args) {
+        var a = new TreeSet<String>();
+
+
+
+
+
     }
 
 }
