@@ -1,6 +1,7 @@
 package contacts.controller.menu.tree;
 
 import java.security.InvalidParameterException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -29,9 +30,13 @@ public class Node<T> {
         return new Node<>(value, parent, children);
     }
 
-    private Node(T value, Node<T> parent, Map<String, Node<T>> children) {
+    public Node(T value, Node<T> parent, Map<String, Node<T>> children) {
         this.parent = parent;
         this.children.putAll(children);
+    }
+
+    public Node(T value, Node<T> parent) {
+        this.parent = parent;
     }
 
     public boolean isLeaf() {

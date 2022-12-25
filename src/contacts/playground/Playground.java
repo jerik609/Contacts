@@ -1,5 +1,7 @@
 package contacts.playground;
 
+import contacts.controller.menu.tree.Node;
+import contacts.controller.menu.tree.Tree;
 import contacts.input.validators.NameValidator;
 import contacts.input.validators.PhoneNumberValidator;
 import contacts.pool.Keyed;
@@ -80,13 +82,23 @@ public class Playground {
         }
     }
 
-    public static void main(String[] args) {
-        var a = new TreeSet<String>();
+    public static void main2(String[] args) {
+        var tree = new Tree<>("animal");
+        var root = tree.getRoot();
 
 
+        var nodeMammals = new Node<>("mammals", root);
+        var nodeLizards = new Node<>("lizards", root);
+        var nodeInsects = new Node<>("insects", root);
 
+        root.addChild("mammals", nodeMammals);
+        root.addChild("lizards", nodeLizards);
+        root.addChild("insects", nodeInsects);
 
+        var nodeHuman = new Node<>("human", nodeMammals);
+        nodeMammals.addChild("humans", nodeHuman);
 
+        System.out.println("whatever");
     }
 
 }
