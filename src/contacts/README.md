@@ -1,4 +1,5 @@
 TODOs:
-
-1. introduce factory pattern for data entities
-2. introduce command pattern for modifications of entities via menu
+- serialize and deserialize create and modify date
+- add serialization uiid
+- navigable menu
+- searching via anything - build searchable dictionary with key return to display the actual item, well, return a pair of <class,key>
