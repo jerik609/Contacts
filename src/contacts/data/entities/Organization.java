@@ -49,6 +49,13 @@ public class Organization extends ContactDetails implements Serializable {
         return name;
     }
 
+    @Override
+    public String searchableDesc() {
+        return name + " " +
+                address.getAddress() + " " +
+                phoneNumber.getPhoneNumber();
+    }
+
     public static class Builder {
         private final Validator nameValidator;
 

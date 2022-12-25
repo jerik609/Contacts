@@ -3,10 +3,10 @@ package contacts.controller.command.commands;
 import contacts.controller.command.Command;
 import contacts.controller.newmenu.Menu;
 
-public class StopCommandForNewMenu implements Command {
+public class NewMenuStopCommand implements Command {
     private final Menu menu;
 
-    public StopCommandForNewMenu(Menu menu) {
+    public NewMenuStopCommand(Menu menu) {
         this.menu = menu;
     }
 

@@ -75,6 +75,16 @@ public class Person extends ContactDetails implements Serializable {
         return firstname + " " + surname;
     }
 
+    @Override
+    public String searchableDesc() {
+        return firstname + " " +
+                surname + " " +
+                birthDate + " " +
+                gender.name() + " " +
+                address.getAddress() + " " +
+                phoneNumber.getPhoneNumber();
+    }
+
     public static class Builder {
         private final Validator nameValidator;
 

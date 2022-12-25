@@ -28,6 +28,8 @@ public abstract class Keyed {
 
     public abstract String shortDesc();
 
+    public abstract String searchableDesc();
+
     @Override
     public String toString() {
         return "Time created: " + createdTime.truncatedTo(ChronoUnit.MINUTES) + "\n" +
