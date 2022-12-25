@@ -4,6 +4,8 @@ import contacts.controller.Contacts;
 import contacts.controller.command.CommandExecutor;
 import contacts.controller.command.commands.ContactsCountCommand;
 import contacts.controller.command.commands.NoopCommand;
+import contacts.controller.command.commands.StopCommand;
+import contacts.controller.command.commands.StopCommandForNewMenu;
 
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ public class Menu {
     private final Contacts contacts;
     private final CommandExecutor commandExecutor = new CommandExecutor();
     private BaseItem currentItem;
+    private boolean stop = false;
 
     private void constructMenu(Scanner scanner) {
         var root = new MenuItem("menu", null, scanner);
@@ -20,7 +23,7 @@ public class Menu {
         var itemList = new MenuItem("list", root, scanner);
         var itemSearch = new ActionItem("search", root, scanner, commandExecutor, () -> new NoopCommand("search"));
         var itemCount = new ActionItem("count", root, scanner, commandExecutor, () -> new ContactsCountCommand(contacts));
-        var itemExit = new ActionItem("exit", root, scanner, commandExecutor, () -> new NoopCommand("exit"));
+        var itemExit = new ActionItem("exit", root, scanner, commandExecutor, () -> new StopCommandForNewMenu(this));
 
         root.addChild("add", itemAdd);
 
@@ -46,9 +49,12 @@ public class Menu {
     }
 
     public void run() {
-        while (true) {
+        while (!stop) {
             currentItem = currentItem.executeItem();
         }
     }
 
+    public void stop() {
+        stop = true;
+    }
 }
