@@ -6,12 +6,16 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class MenuItem extends BaseItem {
-    public MenuItem(String value, Node<String> parent, Map<String, Node<String>> children, Scanner scanner) {
-        super(value, parent, children, scanner);
+    private final Scanner scanner;
+
+    protected MenuItem(String key, BaseItem value, Node<BaseItem> parent, Map<String, Node<BaseItem>> children, Scanner scanner) {
+        super(key, value, parent, children);
+        this.scanner = scanner;
     }
 
-    public MenuItem(String value, Node<String> parent, Scanner scanner) {
-        super(value, parent, scanner);
+    protected MenuItem(String key, BaseItem value, Node<BaseItem> parent, Scanner scanner) {
+        super(key, value, parent);
+        this.scanner = scanner;
     }
 
     @Override
@@ -20,7 +24,7 @@ public class MenuItem extends BaseItem {
                 " Enter action " +
                 "(" +
                 this.getAllChildren().values().stream()
-                        .map(Node::getValue)
+                        .map(Node::getKey)
                         .reduce((str1, str2) -> str1 + ", " + str2).orElse("empty menu!") +
                 "): ";
         System.out.print(sb);

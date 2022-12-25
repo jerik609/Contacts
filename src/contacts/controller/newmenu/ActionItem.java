@@ -5,7 +5,7 @@ import contacts.controller.command.CommandExecutor;
 import contacts.common.tree.Node;
 
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -15,13 +15,14 @@ public class ActionItem extends BaseItem {
     private final CommandExecutor commandExecutor;
     private final Supplier<List<Command>> commandSupplier;
 
-    public ActionItem(
-            String value,
-            Node<String> parent,
-            Scanner scanner,
-            CommandExecutor commandExecutor,
-            Supplier<Command> commandSupplier) {
-        super(value, parent, scanner);
+    protected ActionItem(String key, BaseItem value, Node<BaseItem> parent, Map<String, Node<BaseItem>> children, CommandExecutor commandExecutor, Supplier<List<Command>> commandSupplier) {
+        super(key, value, parent, children);
+        this.commandExecutor = commandExecutor;
+        this.commandSupplier = commandSupplier;
+    }
+
+    protected ActionItem(String key, BaseItem value, Node<BaseItem> parent, CommandExecutor commandExecutor, Supplier<List<Command>> commandSupplier) {
+        super(key, value, parent);
         this.commandExecutor = commandExecutor;
         this.commandSupplier = commandSupplier;
     }
@@ -31,7 +32,9 @@ public class ActionItem extends BaseItem {
         for (var command : commandSupplier.get()) {
             commandExecutor.acceptCommand(command);
             commandExecutor.executeCommands();
-        //TODO yet another cast, we can do better via polymorphism
-        return (BaseItem) this.getParent().orElseThrow(() -> new RuntimeException("action node has no parent!"));
+            //TODO yet another cast, we can do better via polymorphism
+            return (BaseItem) this.getParent().orElseThrow(() -> new RuntimeException("action node has no parent!"));
+        }
+        return null;
     }
 }

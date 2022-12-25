@@ -6,16 +6,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public abstract class BaseItem extends Node<BaseItem> {
-    protected final Scanner scanner;
-
-    public BaseItem(String key, Node<String> parent, Map<String, Node<String>> children, Scanner scanner) {
-        super(value, , parent, children);
-        this.scanner = scanner;
+    protected BaseItem(String key, BaseItem value, Node<BaseItem> parent, Map<String, Node<BaseItem>> children) {
+        super(key, value, parent, children);
     }
 
-    public BaseItem(String value, Node<String> parent, Scanner scanner) {
-        super(value, parent);
-        this.scanner = scanner;
+    protected BaseItem(String key, BaseItem value, Node<BaseItem> parent) {
+        super(key, value, parent);
     }
 
     abstract BaseItem executeItem();
