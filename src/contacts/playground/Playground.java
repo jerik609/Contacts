@@ -1,7 +1,7 @@
 package contacts.playground;
 
 import contacts.controller.Contacts;
-import contacts.controller.newmenu.Menu;
+import contacts.controller.menu.Menu;
 import contacts.common.tree.Node;
 import contacts.common.tree.Tree;
 import contacts.input.validators.NameValidator;

@@ -1,7 +1,7 @@
 package contacts.controller.command.commands;
 
 import contacts.controller.command.Command;
-import contacts.controller.newmenu.Menu;
+import contacts.controller.menu.Menu;
 
 public class NewMenuStopCommand implements Command {
     private final Menu menu;

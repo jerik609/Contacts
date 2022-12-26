@@ -1,6 +1,5 @@
-package contacts.controller.newmenu;
+package contacts.controller.menu;
 
-import contacts.common.tree.NavigatingCommandNode;
 import contacts.controller.Contacts;
 import contacts.controller.command.CommandExecutor;
 import contacts.controller.command.commands.*;
