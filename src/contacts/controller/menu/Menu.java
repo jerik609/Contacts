@@ -33,14 +33,14 @@ public class Menu {
             {
                 var listNumber = new SelectionAwareMenuNode("[number]", list, executor, () -> List.of(new SelectItemCommand(contacts)), scanner);
                 // edit
-                var listNumberEdit = new ReturningNode("edit", listNumber, executor, () -> List.of(new NoopCommand("list number edit")));
+                var listNumberEdit = new ReturningNode("edit", listNumber, executor, () -> List.of(new ContactsEditCommand(scanner, contacts)));
                 // delete
-                var listNumberDelete = new ReturningNode("delete", listNumber, executor, () -> List.of(new NoopCommand("list number delete")));
+                var listNumberDelete = new ReturningNode("delete", listNumber, executor, () -> List.of(new ContactsRemoveCommand(scanner, contacts)));
                 // menu
                 var listNumberMenu = new ReturningToRootNode("menu", listNumber, executor, Collections::emptyList);
             }
             // BACK
-            var listBack = new ReturningToRootNode("back", list, executor, () -> List.of(new NoopCommand("back")));
+            var listBack = new ReturningToRootNode("back", list, executor, Collections::emptyList);
         }
 
         // SEARCH =============================================================

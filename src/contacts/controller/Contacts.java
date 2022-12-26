@@ -108,7 +108,7 @@ public class Contacts {
         final var updatedEntry = lastSelectedItem.updateFromSelf(scanner);
         phoneBook.putValue(updatedEntry);
 
-        System.out.println("The record updated!\n");
+        System.out.println("Saved");
     }
 
     public void search() {
