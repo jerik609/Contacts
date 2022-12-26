@@ -56,7 +56,7 @@ public class Contacts {
             System.out.println("No records to list!\n");
             return;
         }
-        final var entries = phoneBook.getAll();
+        final var entries = phoneBook.getAll(Keyed.class);
         for (int i = 0; i < entries.size(); i++) {
             System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
         }
@@ -75,7 +75,7 @@ public class Contacts {
         if (!lastListing.isEmpty()) { // normal op - after performing a selection
             selectedItem = lastListing.get(selection);
         } else { // after edit or delete
-            lastListing = phoneBook.getAll();
+            lastListing = phoneBook.getAll(Keyed.class);
             selectedItem = lastListing
                     .stream()
                     .filter(item -> Objects.equals(item.getKey(), lastSelectedItem.getKey()))
@@ -121,7 +121,7 @@ public class Contacts {
         System.out.print("Enter search query: ");
         var searchString = scanner.nextLine().toLowerCase();
 
-        final var entries = phoneBook.getAll()
+        final var entries = phoneBook.getAll(Keyed.class)
                 .stream()
                 .filter(item -> item.searchableDesc().trim().toLowerCase().matches(".*" + searchString + ".*"))
                 .collect(Collectors.toList());

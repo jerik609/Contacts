@@ -5,6 +5,9 @@ import java.util.stream.Stream;
 
 public class PoolManager {
     private final Map<Class<?>, Pool> poolMap = new HashMap<>();
+
+    private final Map<Class<?>, Object> poolMap2 = new HashMap<>();
+
     private final Set<Class<?>> managedPools = new HashSet<>();
 
     /**
@@ -54,23 +57,29 @@ public class PoolManager {
         return true;
     }
 
+    //TODO: this does not benefit from the pattern?
+    // probably victim to type erasure
+    // https://stackoverflow.com/questions/2390662/java-how-do-i-get-a-class-literal-from-a-generic-type
+    // but we can repack via streams from Keyed to the specific subtype of keyed (do type cast for each individual item)
+    // is that not a bit inefficient?
     //TODO: optimize using streams? -> do not provide a list, but a stream of elements
     //      but we need to somehow index these items to display them properly for selection?
     /**
      * Get all elements from pools
      * @return
      */
-    public List<Keyed> getAll() {
-        //TODO: this sorting is just a workaround to pass tests
-        var list = new ArrayList<>(poolMap.values().stream().flatMap(pool -> pool.getAll().stream()).toList());
-        list.sort((keyed, t1) -> {
+    public <T extends Keyed> List<T> getAll(Class<T> type) {
+        final var listNew = poolMap.values().stream().flatMap(pool -> pool.getAll().stream().map(type::cast)).toList();
+        final var repacked = new ArrayList<T>(listNew);
+        //TODO: this sorting is just a workaround to pass tests - we do not really need ordering!
+        repacked.sort((keyed, t1) -> {
             if (keyed.getKey().equals(t1.getKey())) {
                 return 0;
             } else {
                 return Integer.parseInt(keyed.getKey()) < Integer.parseInt(t1.getKey()) ? 1 : -1;
             }
         });
-        return list;
+        return listNew;
     }
 
     /**
@@ -79,11 +88,11 @@ public class PoolManager {
      * @return stream of items
      * @param <T> type of the items
      */
-    public <T extends Keyed> Stream<Keyed> getPoolAsStream(Class<T> type) {
+    public <T extends Keyed> Stream<T> getPoolAsStream(Class<T> type) {
         if (!poolMap.containsKey(type)) {
             return Stream.empty();
         }
-        return poolMap.get(type).getAll().stream();
+        return poolMap.get(type).getAll().stream().map(type::cast);
     }
 
     /**
