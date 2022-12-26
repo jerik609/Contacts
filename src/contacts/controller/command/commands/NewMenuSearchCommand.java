@@ -12,8 +12,6 @@ public class NewMenuSearchCommand implements Command {
 
     @Override
     public void execute() {
-        
-
-
+        //contacts.search();
     }
 }

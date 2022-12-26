@@ -44,7 +44,7 @@ public class Contacts {
     }
 
     public void displayNumberOfEntries() {
-        System.out.println("The phone Book has " + phoneBook.getSize() + " records.\n");
+        System.out.println("The Phone Book has " + phoneBook.getSize() + " records.\n");
     }
 
     public void listPhoneBook() {

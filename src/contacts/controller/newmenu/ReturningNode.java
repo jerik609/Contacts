@@ -7,8 +7,8 @@ import contacts.controller.command.CommandExecutor;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ReturningNavigatingNode extends NavigatingCommandNode {
-    protected ReturningNavigatingNode(
+public class ReturningNode extends NavigatingCommandNode {
+    protected ReturningNode(
             String key,
             NavigatingCommandNode parent,
             CommandExecutor executor,
@@ -18,6 +18,8 @@ public class ReturningNavigatingNode extends NavigatingCommandNode {
 
     @Override
     protected NavigatingCommandNode navigate() {
-        return (NavigatingCommandNode) this.getParent().orElseThrow();
+        return (NavigatingCommandNode) this.getParent().orElseThrow(
+                () -> new RuntimeException("no parent node, this indicates major inconsistency in menu setup")
+        );
     }
 }

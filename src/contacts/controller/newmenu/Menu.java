@@ -10,61 +10,75 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    private final Scanner scanner;
     private final Contacts contacts;
-    private final CommandExecutor commandExecutor = new CommandExecutor();
+    private final CommandExecutor executor = new CommandExecutor();
     private NavigatingCommandNode currentItem;
     private boolean stop = false;
 
     private void constructMenu(Scanner scanner) {
-        var root = new MenuNavigatingNode("menu", null, commandExecutor, Collections::emptyList, scanner);
+        var root = new MenuNode("menu", null, executor, Collections::emptyList, scanner);
 
-        var itemAdd = new MenuNavigatingNode("add", root, commandExecutor, Collections::emptyList, scanner);
-        var itemList = new MenuNavigatingNode("list", root, commandExecutor, Collections::emptyList, scanner);
-        var itemSearch = new MenuNavigatingNode("search", root, commandExecutor, Collections::emptyList, scanner);
-        var itemCount = new MenuNavigatingNode("count", root, commandExecutor, Collections::emptyList, scanner);
-        var itemExit = new ReturningNavigatingNode("exit", root, commandExecutor, () -> List.of(new NewMenuStopCommand(this)));
+        // ADD ================================================================
+        {
+            var add = new MenuNode("add", root, executor, Collections::emptyList, scanner);
+            // PERSON
+            var addPerson = new ReturningNode("person", add, executor, () -> List.of(new PersonAddCommand(contacts, scanner)));
+            // ORGANIZATION
+            var addOrganization = new ReturningNode("organization", add, executor, () -> List.of(new OrganizationAddCommand(contacts, scanner)));
+        }
 
+        // LIST ===============================================================
+        {
+            var list = new MenuNode("list", root, executor, () -> List.of(new ContactsListCommand(contacts)), scanner);
+            // [number]
+            {
+                var listNumber = new MenuNode("[number]", list, executor, () -> List.of(new NoopCommand("number")), scanner);
+                // edit
+                var listNumberEdit = new ReturningNode("edit", listNumber, executor, () -> List.of(new NoopCommand("list number edit")));
+                // delete
+                var listNumberDelete = new ReturningNode("delete", listNumber, executor, () -> List.of(new NoopCommand("list number delete")));
+                // menu
+                var listNumberMenu = new ReturningToRootNode("menu", listNumber, executor, Collections::emptyList);
+            }
+            // BACK
+            var listBack = new ReturningToRootNode("back", list, executor, () -> List.of(new NoopCommand("back")));
+        }
 
+        // SEARCH =============================================================
+        {
+            var search = new MenuNode("search", root, executor, () -> List.of(new NewMenuSearchCommand(contacts)), scanner);
+            // [NUMBER]
+            {
+                var searchNumber = new MenuNode("[number]", search, executor, () -> List.of(new NoopCommand("number")), scanner);
+                // edit
+                var searchNumberEdit = new ReturningNode("edit", searchNumber, executor, () -> List.of(new NoopCommand("list number edit")));
+                // delete
+                var searchNumberDelete = new ReturningNode("delete", searchNumber, executor, () -> List.of(new NoopCommand("list number delete")));
+                // menu
+                var searchNumberMenu = new ReturningToRootNode("menu", searchNumber, executor, Collections::emptyList);
+            }
+            // BACK
+            var searchBack = new ReturningToRootNode("back", search, executor, () -> List.of(new NoopCommand("back")));
+            // AGAIN
+            var searchAgain = new ReturningNode("again", search, executor, () -> List.of(new NoopCommand("again")));
+        }
 
+        // COUNT ==============================================================
+        {
+            var itemCount = new ReturningNode("count", root, executor, () -> List.of(new ContactsCountCommand(contacts)));
+        }
 
+        // EXIT ===============================================================
+        {
+            var itemExit = new ReturningNode("exit", root, executor, () -> List.of(new NewMenuStopCommand(this)));
+        }
 
-
-
-
-//                new MenuItem("add", root, scanner);
-//        var itemList = new ActionItem("list", root, scanner, commandExecutor,
-//                () -> List.of(new ContactsListCommand(contacts)));
-//        var itemSearch = new ActionItem("search", root, scanner, commandExecutor,
-//                () -> List.of(new ContactsListCommand(contacts), new NewMenuSearchCommand(contacts)));
-//        var itemCount = new ActionItem("count", root, scanner, commandExecutor,
-//                () -> List.of(new ContactsCountCommand(contacts)));
-//        var itemExit = new ActionItem("exit", root, scanner, commandExecutor,
-//                () -> List.of(new NewMenuStopCommand(this)));
-//
-//        root.addChild("add", itemAdd);
-//
-//        //TODO: we can merge new (with parent) and adding of the child to the parent (will make the tree more consistent)
-//        var itemPerson = new ActionItem("person", itemAdd, scanner, commandExecutor,
-//                () -> List.of(new PersonAddCommand(contacts, scanner)));
-//        var itemOrganization = new ActionItem("organization", itemAdd, scanner, commandExecutor,
-//                () -> List.of(new OrganizationAddCommand(contacts, scanner)));
-//
-//        itemAdd.addChild("person", itemPerson);
-//        itemAdd.addChild("organization", itemOrganization);
-//
-//        root.addChild("list", itemList);
-//        root.addChild("search", itemSearch);
-//        root.addChild("count", itemCount);
-//        root.addChild("exit", itemExit);
-//
         currentItem = root;
     }
 
     public Menu(Scanner scanner, Contacts contacts) {
-        this.scanner = scanner;
         this.contacts = contacts;
-        constructMenu(this.scanner);
+        constructMenu(scanner);
     }
 
     public void run() {

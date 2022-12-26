@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-public class MenuNavigatingNode extends NavigatingCommandNode {
+public class MenuNode extends NavigatingCommandNode {
     private final Scanner scanner;
 
-    protected MenuNavigatingNode(
+    protected MenuNode(
             String key,
             NavigatingCommandNode parent,
             CommandExecutor executor,
