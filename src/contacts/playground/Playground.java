@@ -97,24 +97,4 @@ public class Playground {
 
         System.out.println("whatever");
     }
-
-    public static void main(String[] args) {
-        final var scanner = new Scanner(System.in);
-        final var contacts = new Contacts(scanner);
-
-        var menu = new Menu(scanner, contacts);
-
-        menu.run();
-
-
-//        var root = Node.createRootNode("menu");
-//
-//        var nodeAdd = new Node<>("add", root);
-//        var nodeList = new Node<>("list", root);
-//        var nodeSearch = new Node<>("search", root);
-//        var nodeCount = new Node<>("count", root);
-//        var nodeExit = new Node<>("exit", root);
-
-    }
-
 }

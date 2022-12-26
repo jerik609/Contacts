@@ -21,9 +21,9 @@ public class Menu {
         {
             var add = new MenuNode("add", root, executor, Collections::emptyList, scanner);
             // PERSON
-            var addPerson = new ReturningNode("person", add, executor, () -> List.of(new PersonAddCommand(contacts, scanner)));
+            var addPerson = new ReturningToRootNode("person", add, executor, () -> List.of(new PersonAddCommand(contacts, scanner)));
             // ORGANIZATION
-            var addOrganization = new ReturningNode("organization", add, executor, () -> List.of(new OrganizationAddCommand(contacts, scanner)));
+            var addOrganization = new ReturningToRootNode("organization", add, executor, () -> List.of(new OrganizationAddCommand(contacts, scanner)));
         }
 
         // LIST ===============================================================
@@ -84,7 +84,7 @@ public class Menu {
         while (!stop) {
             currentItem = currentItem.execute();
         }
-        //contacts.saveData();
+        contacts.saveData();
     }
 
     public void stop() {
