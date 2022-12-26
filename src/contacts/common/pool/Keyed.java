@@ -10,8 +10,11 @@ public abstract class Keyed {
     protected LocalDateTime createdTime;
     protected LocalDateTime updatedTime;
 
+    private static int uniqueKey = 0;
+
     protected Keyed() {
-        myKey = this.getClass() + "_" + UUID.randomUUID();
+        myKey = String.valueOf(++uniqueKey);
+        //myKey = this.getClass() + "_" + UUID.randomUUID();
         createdTime = LocalDateTime.now();
         updatedTime = createdTime;
     }

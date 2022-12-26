@@ -57,9 +57,9 @@ public class Menu {
                 var searchNumberMenu = new ReturningToRootNode("menu", searchNumber, executor, Collections::emptyList);
             }
             // BACK
-            var searchBack = new ReturningToRootNode("back", search, executor, () -> List.of(new NoopCommand("back")));
+            var searchBack = new ReturningToRootNode("back", search, executor, Collections::emptyList);
             // AGAIN
-            var searchAgain = new ReturningNode("again", search, executor, () -> List.of(new NoopCommand("again")));
+            var searchAgain = new ReturningNode("again", search, executor, Collections::emptyList);
         }
 
         // COUNT ==============================================================
