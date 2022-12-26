@@ -1,4 +1,4 @@
-package contacts.data.attributes;
+package contacts.data.entities;
 
 import contacts.input.validators.PhoneNumberValidator;
 import contacts.input.validators.Validator;

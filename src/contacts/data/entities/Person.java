@@ -1,8 +1,5 @@
 package contacts.data.entities;
 
-import contacts.data.attributes.Address;
-import contacts.data.attributes.Gender;
-import contacts.data.attributes.PhoneNumber;
 import contacts.input.PersonAction;
 import contacts.input.PersonReader;
 import contacts.input.validators.NameValidator;

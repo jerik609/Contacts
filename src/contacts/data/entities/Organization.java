@@ -1,7 +1,5 @@
 package contacts.data.entities;
 
-import contacts.data.attributes.Address;
-import contacts.data.attributes.PhoneNumber;
 import contacts.input.OrganizationAction;
 import contacts.input.OrganizationReader;
 import contacts.input.validators.DefaultValidator;
