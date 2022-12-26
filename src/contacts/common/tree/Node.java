@@ -54,7 +54,7 @@ public class Node<T> {
     }
 
     public boolean isRoot() {
-        return parent == null;
+        return parent != null;
     }
 
     public boolean isLeaf() {
