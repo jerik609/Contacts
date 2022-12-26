@@ -45,7 +45,7 @@ public class Menu {
 
         // SEARCH =============================================================
         {
-            var search = new MenuNode("search", root, executor, () -> List.of(new NewMenuSearchCommand(contacts)), scanner);
+            var search = new MenuNode("search", root, executor, () -> List.of(new SearchCommand(contacts)), scanner);
             // [NUMBER]
             {
                 var searchNumber = new MenuNode("[number]", search, executor, () -> List.of(new NoopCommand("number")), scanner);
@@ -69,7 +69,7 @@ public class Menu {
 
         // EXIT ===============================================================
         {
-            var itemExit = new ReturningNode("exit", root, executor, () -> List.of(new NewMenuStopCommand(this)));
+            var itemExit = new ReturningNode("exit", root, executor, () -> List.of(new StopCommand(this)));
         }
 
         currentItem = root;

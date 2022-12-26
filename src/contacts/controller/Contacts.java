@@ -7,6 +7,8 @@ import contacts.common.pool.Keyed;
 import contacts.common.pool.PoolManager;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class Contacts {
@@ -14,6 +16,8 @@ public class Contacts {
     private final Scanner scanner;
     private final PoolManager phoneBook = new PoolManager();
     private final DataSaver dataSaver = new DataSaver(phoneBook);
+    private List<Keyed> lastListing = Collections.emptyList();
+    private Keyed lastSelectedItem = null;
 
     public Contacts(Scanner scanner) {
         this.scanner = scanner;
@@ -52,48 +56,64 @@ public class Contacts {
             System.out.println("No records to list!\n");
             return;
         }
+
         final var entries = phoneBook.getAll();
         for (int i = 0; i < entries.size(); i++) {
             System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
         }
+        System.out.println();
+
+        // store listing in cache
+        lastListing = entries;
+    }
+
+    public void selectItem() {
+        if (lastListing.isEmpty()) {
+            System.out.println("No items available!\n");
+            return;
+        }
 
         System.out.print("Select a record: ");
         final var selection = Integer.parseInt(scanner.nextLine()) - 1;
-        System.out.println(entries.get(selection));
+        final var selectedItem = lastListing.get(selection);
+        System.out.println(selectedItem);
+
+        // store selection in cache
+        lastSelectedItem = selectedItem;
     }
 
     public void removeEntry(Scanner scanner) {
-        if (phoneBook.getSize() == 0) {
+        if (lastSelectedItem == null) {
             System.out.println("No records to remove!\n");
             return;
         }
 
-        final var entries = phoneBook.getAll();
-        for (int i = 0; i < entries.size(); i++) {
-            System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
-        }
+        phoneBook.remove(lastSelectedItem);
 
-        System.out.print("Select a record: ");
-        final var selection = Integer.parseInt(scanner.nextLine()) - 1;
-        final var entry = entries.get(selection);
-        phoneBook.remove(entry);
+        // invalidate cache
+        lastSelectedItem = null;
+        lastListing = Collections.emptyList();
+
         System.out.println("The record removed!\n");
     }
 
     public void editEntry(Scanner scanner) {
-        if (phoneBook.getSize() == 0) {
+        if (lastSelectedItem == null) {
             System.out.println("No records to edit!\n");
             return;
         }
-        final var entries = phoneBook.getAll();
-        for (int i = 0; i < entries.size(); i++) {
-            System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
-        }
 
-        System.out.print("Select a record: ");
-        final var selection = Integer.parseInt(scanner.nextLine()) - 1;
-        final var updatedEntry = entries.get(selection).updateFromSelf(scanner);
+        final var updatedEntry = lastSelectedItem.updateFromSelf(scanner);
         phoneBook.putValue(updatedEntry);
+
         System.out.println("The record updated!\n");
+    }
+
+    public void search() {
+//        var searchString = scanner.nextLine();
+//        System.out.println("will be searching for: ");
+//
+//
+//        phoneBook.
     }
 }

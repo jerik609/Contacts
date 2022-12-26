@@ -23,7 +23,7 @@ public class MenuNode extends NavigatingCommandNode {
 
     @Override
     protected NavigatingCommandNode navigate() {
-        String sb = "[" + this.getValue() + "]" +
+        String sb = "[" + (this.getValue().equals("[number]") ? "record" : this.getValue())  + "]" +
                 " Enter action " +
                 "(" +
                 this.getAllChildren().values().stream()

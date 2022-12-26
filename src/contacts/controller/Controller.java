@@ -1,7 +1,6 @@
 package contacts.controller;
 
 import contacts.controller.command.CommandExecutor;
-import contacts.controller.oldmenu.ContactsMenu;
 
 import java.util.Scanner;
 
@@ -29,14 +28,14 @@ public class Controller {
     }
 
     public void run() {
-        do {
-            var menu = new ContactsMenu(this, scanner, contacts);
-            var command = menu.get();
-            if (command != null) {
-                commandExecutor.acceptCommand(command);
-            }
-            commandExecutor.executeCommands();
-        } while (!stop);
-        contacts.saveData();
+//        do {
+//            var menu = new ContactsMenu(this, scanner, contacts);
+//            var command = menu.get();
+//            if (command != null) {
+//                commandExecutor.acceptCommand(command);
+//            }
+//            commandExecutor.executeCommands();
+//        } while (!stop);
+//        contacts.saveData();
     }
 }

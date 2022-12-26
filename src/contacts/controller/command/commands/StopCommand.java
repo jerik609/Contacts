@@ -1,18 +1,17 @@
 package contacts.controller.command.commands;
 
 import contacts.controller.command.Command;
-import contacts.controller.Controller;
+import contacts.controller.menu.Menu;
 
 public class StopCommand implements Command {
-    private final Controller menu;
+    private final Menu menu;
 
-    public StopCommand(Controller menu) {
+    public StopCommand(Menu menu) {
         this.menu = menu;
     }
 
     @Override
     public void execute() {
-        //System.out.println("Stopping...");
         menu.stop();
     }
 }

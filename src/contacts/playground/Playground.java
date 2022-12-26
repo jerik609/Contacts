@@ -102,9 +102,6 @@ public class Playground {
         final var scanner = new Scanner(System.in);
         final var contacts = new Contacts(scanner);
 
-
-
-
         var menu = new Menu(scanner, contacts);
 
         menu.run();
