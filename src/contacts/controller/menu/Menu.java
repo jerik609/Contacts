@@ -35,7 +35,7 @@ public class Menu {
                 // edit
                 var listNumberEdit = new ReturningNode("edit", listNumber, executor, () -> List.of(new ContactsEditCommand(scanner, contacts)));
                 // delete
-                var listNumberDelete = new ReturningNode("delete", listNumber, executor, () -> List.of(new ContactsRemoveCommand(scanner, contacts)));
+                var listNumberDelete = new ReturningToRootNode("delete", listNumber, executor, () -> List.of(new ContactsRemoveCommand(scanner, contacts)));
                 // menu
                 var listNumberMenu = new ReturningToRootNode("menu", listNumber, executor, Collections::emptyList);
             }
@@ -48,11 +48,11 @@ public class Menu {
             var search = new MenuNode("search", root, executor, () -> List.of(new SearchCommand(contacts)), scanner);
             // [NUMBER]
             {
-                var searchNumber = new MenuNode("[number]", search, executor, () -> List.of(new NoopCommand("number")), scanner);
+                var searchNumber = new SelectionAwareMenuNode("[number]", search, executor, () -> List.of(new SelectItemCommand(contacts)), scanner);
                 // edit
-                var searchNumberEdit = new ReturningNode("edit", searchNumber, executor, () -> List.of(new NoopCommand("list number edit")));
+                var searchNumberEdit = new ReturningNode("edit", searchNumber, executor, () -> List.of(new ContactsEditCommand(scanner, contacts)));
                 // delete
-                var searchNumberDelete = new ReturningNode("delete", searchNumber, executor, () -> List.of(new NoopCommand("list number delete")));
+                var searchNumberDelete = new ReturningToRootNode("delete", searchNumber, executor, () -> List.of(new ContactsRemoveCommand(scanner, contacts)));;
                 // menu
                 var searchNumberMenu = new ReturningToRootNode("menu", searchNumber, executor, Collections::emptyList);
             }

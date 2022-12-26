@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Contacts {
 
@@ -45,7 +47,7 @@ public class Contacts {
 
     public void add(Keyed item) {
         phoneBook.putValue(item);
-        System.out.println("The record added.\n");
+        System.out.println("The record added.");
     }
 
     public void displayNumberOfEntries() {
@@ -72,13 +74,18 @@ public class Contacts {
             throw new InvalidParameterException("non initialized list command");
         }
 
-        if (lastListing.isEmpty()) {
-            System.out.println("No items available!\n");
-            return;
+        Keyed selectedItem;
+        if (!lastListing.isEmpty()) { // normal op - after performing a selection
+            selectedItem = lastListing.get(selection);
+        } else { // after edit or delete
+            lastListing = phoneBook.getAll();
+            selectedItem = lastListing
+                    .stream()
+                    .filter(item -> item.getKey().equals(lastSelectedItem.getKey()))
+                    .findFirst()
+                    .orElse(null);
         }
-
-        final var selectedItem = lastListing.get(selection);
-        System.out.println(selectedItem);
+        System.out.println(selectedItem == null ? "" : selectedItem);
 
         // store selection in cache
         lastSelectedItem = selectedItem;
@@ -93,10 +100,9 @@ public class Contacts {
         phoneBook.remove(lastSelectedItem);
 
         // invalidate cache
-        lastSelectedItem = null;
         lastListing = Collections.emptyList();
 
-        System.out.println("The record removed!\n");
+        System.out.println("The record removed!");
     }
 
     public void editEntry(Scanner scanner) {
@@ -108,14 +114,28 @@ public class Contacts {
         final var updatedEntry = lastSelectedItem.updateFromSelf(scanner);
         phoneBook.putValue(updatedEntry);
 
+        // invalidate cache
+        lastListing = Collections.emptyList();
+
         System.out.println("Saved");
     }
 
     public void search() {
-//        var searchString = scanner.nextLine();
-//        System.out.println("will be searching for: ");
-//
-//
-//        phoneBook.
+        System.out.print("Enter search query: ");
+        var searchString = scanner.nextLine().toLowerCase();
+
+        final var entries = phoneBook.getAll()
+                .stream()
+                .filter(item -> item.searchableDesc().trim().toLowerCase().matches(".*" + searchString + ".*"))
+                .collect(Collectors.toList());
+        System.out.println("Found " + entries.size() + ((entries.size() == 1) ? " results" : " result"));
+
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
+        }
+        System.out.println();
+
+        // store listing in cache
+        lastListing = entries;
     }
 }

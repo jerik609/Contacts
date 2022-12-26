@@ -16,7 +16,7 @@ public abstract class Keyed {
         updatedTime = createdTime;
     }
 
-    protected final String getKey() {
+    public final String getKey() {
         return myKey;
     }
 

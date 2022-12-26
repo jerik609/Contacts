@@ -17,6 +17,7 @@ public class ReturningToRootNode extends NavigatingCommandNode {
         while (node.isRoot()) {
             node = (NavigatingCommandNode) node.getParent().orElse(node);
         }
+        System.out.println();
         return node;
     }
 }

@@ -1,7 +1,6 @@
 package contacts;
 
 import contacts.controller.Contacts;
-import contacts.controller.Controller;
 import contacts.controller.menu.Menu;
 
 import java.util.Scanner;
