@@ -8,10 +8,7 @@ import contacts.common.pool.PoolManager;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Contacts {
@@ -81,7 +78,7 @@ public class Contacts {
             lastListing = phoneBook.getAll();
             selectedItem = lastListing
                     .stream()
-                    .filter(item -> item.getKey().equals(lastSelectedItem.getKey()))
+                    .filter(item -> Objects.equals(item.getKey(), lastSelectedItem.getKey()))
                     .findFirst()
                     .orElse(null);
         }

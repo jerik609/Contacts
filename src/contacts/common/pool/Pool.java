@@ -1,12 +1,12 @@
 package contacts.common.pool;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Pool {
 
-    private final Map<String, Keyed> pool = new HashMap<>();
+    private final Map<String, Keyed> pool = new LinkedHashMap<>();
 
     Keyed get(String key) {
         return pool.get(key);
