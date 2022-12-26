@@ -7,6 +7,7 @@ import contacts.common.pool.Keyed;
 import contacts.common.pool.PoolManager;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -56,7 +57,6 @@ public class Contacts {
             System.out.println("No records to list!\n");
             return;
         }
-
         final var entries = phoneBook.getAll();
         for (int i = 0; i < entries.size(); i++) {
             System.out.println((i + 1) + ". " + entries.get(i).shortDesc());
@@ -67,14 +67,16 @@ public class Contacts {
         lastListing = entries;
     }
 
-    public void selectItem() {
+    public void selectItem(int selection) {
+        if (selection == -1) {
+            throw new InvalidParameterException("non initialized list command");
+        }
+
         if (lastListing.isEmpty()) {
             System.out.println("No items available!\n");
             return;
         }
 
-        System.out.print("Select a record: ");
-        final var selection = Integer.parseInt(scanner.nextLine()) - 1;
         final var selectedItem = lastListing.get(selection);
         System.out.println(selectedItem);
 

@@ -5,6 +5,7 @@ import contacts.controller.command.Command;
 import contacts.controller.command.CommandExecutor;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public abstract class NavigatingCommandNode extends Node<String> {
@@ -23,8 +24,15 @@ public abstract class NavigatingCommandNode extends Node<String> {
 
     protected abstract NavigatingCommandNode navigate();
 
+    protected void decorateCommand(Command command) {
+        // noop in default implementation
+    }
+
     public final NavigatingCommandNode execute() {
-        this.commands.get().forEach(executor::acceptCommand);
+        this.commands.get().forEach(command -> {
+            decorateCommand(command);
+            executor.acceptCommand(command);
+        });
         executor.executeCommands();
         return navigate();
     }

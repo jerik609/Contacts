@@ -33,9 +33,26 @@ public class MenuNode extends NavigatingCommandNode {
         System.out.print(sb);
 
         var selection = scanner.nextLine();
+        var selectionOrig = selection;
+
+        // special handling for number selections
+        if (this.getValue().equals("[number]")) {
+            if (selection.equals("[number]")) { // can't select [number], default to ""
+                selection = "";
+            }
+        } else if (selection.matches("[0-9]*")) { // selection is a number
+            selection = "[number]"; // and make it pass
+        }
+
         //TODO: can we get rid of this cast somehow? (but it should be generally safe)
         return (NavigatingCommandNode) this
                 .getChildByKey(selection.trim().toLowerCase())
+                .map(item -> {
+                    if (item instanceof SelectionAwareMenuNode node) {
+                        node.acceptSelection(Integer.parseInt(selectionOrig) - 1);
+                    }
+                    return item;
+                })
                 .orElseGet(() -> {
                     System.out.println("no such option!");
                     return this;

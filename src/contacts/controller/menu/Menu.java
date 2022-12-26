@@ -31,7 +31,7 @@ public class Menu {
             var list = new MenuNode("list", root, executor, () -> List.of(new ContactsListCommand(contacts)), scanner);
             // [number]
             {
-                var listNumber = new MenuNode("[number]", list, executor, () -> List.of(new NoopCommand("number")), scanner);
+                var listNumber = new SelectionAwareMenuNode("[number]", list, executor, () -> List.of(new SelectItemCommand(contacts)), scanner);
                 // edit
                 var listNumberEdit = new ReturningNode("edit", listNumber, executor, () -> List.of(new NoopCommand("list number edit")));
                 // delete
